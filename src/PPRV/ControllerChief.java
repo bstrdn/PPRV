@@ -162,10 +162,10 @@ catch (Exception e) {}
                 ResultSet rs2 = ConH2.conn.createStatement().executeQuery("SELECT * from ANALYSIS");
                 while (rs2.next()) {
 //                    System.out.println(rs2.getString(1));
-//                    System.out.println("aaaaaaaa" + analyzes[3]);
-//                    System.out.println("aaaaaaaa" + rs2.getString(1));
+                    System.out.println("aaaaaaaa" + analyzes[2]);
+                    System.out.println("aaaaaaaa" + rs2.getString(1));
 
-                    if (analyzes[3].equals(rs2.getString(1))) {
+                    if (analyzes[2].equals(rs2.getString(1))) {
                         analysisNew = false;
 
                     System.out.println("СУЩЕСТВУЕТ");
