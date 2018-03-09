@@ -53,45 +53,33 @@ public class ControllerChief  {
 
     @FXML
     private void initialize() throws Exception {
-        //label1.setText("I'm a Label.");
-        //tableview = new TableView();
-//        choiceBox = new ChoiceBox(FXCollections.observableArrayList(
-////                "First", "Second", "Third")
-////        );
+        //label1.setText("I'm a Label.");        //tableview = new TableView();//        choiceBox = new ChoiceBox(FXCollections.observableArrayList(
+////                "First", "Second", "Third")      );
 //
-       ConH2.Conn();
+
+        //загрузка операций в выподающий список
+        ConH2.Conn();
         data = FXCollections.observableArrayList();
         ArrayList<String> oper = new ArrayList<>();
-
             String SQL = "SELECT * from OPERATIONS";
             //ResultSet
             ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
-//
            while (rs.next()) {
                 oper.add(rs.getString("NAME"));
                 System.out.println(rs.getString("NAME"));
            }
-//
-//
         choiceBox.setItems(FXCollections.observableArrayList(
                 oper)
         );
 
 
-
-
-
-
-
-
+        //перестроение списка
         buildData();
-
-
-
     }
 
     public void onClick(ActionEvent actionEvent) throws Exception {
 
+        //id операции
         choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
@@ -112,14 +100,14 @@ public class ControllerChief  {
         statmt = ConH2.conn.createStatement();
 
         Button clickedButton = (Button) source;
+
+        //
         ObservableList selItem = (ObservableList) tableview.getSelectionModel().getSelectedItem();
 try {
+    //id пациента
     idPatient = Integer.parseInt(selItem.get(0).toString());
 }
-catch (Exception e) {
-
-}
-
+catch (Exception e) {}
 
         switch (clickedButton.getId()) {
             case  "btnLoad":
@@ -127,9 +115,6 @@ catch (Exception e) {
                 break;
             case "btnDel":
                 delPatient();
-
-
-
                 break;
             case "btnView":
                 System.out.println(selItem.get(0));
@@ -156,17 +141,14 @@ catch (Exception e) {
         String csvFile = file.getPath();
         String line = "";
         String cvsSplitBy = ",";
-
         tf12.setText(csvFile);
-
-
 
     try (BufferedReader br = new BufferedReader(new FileReader(tf12.getText()))) {
         while ((line = br.readLine()) != null) {
             // use comma as separator
             String[] analyzes = line.split(cvsSplitBy);
-            System.out.println("Имя: " + analyzes[0] + " , Уникальный id: " + analyzes[1]);
-            String sql = "INSERT INTO PATIENT " + "VALUES (NULL, '" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[2] + "')";
+            System.out.println("ID пациента: " + analyzes[0] + " , ФИО: " + analyzes[1]);
+            String sql = "INSERT INTO PATIENT VALUES (NULL, '" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[2] + "', '" + analyzes[3] +"')";
             statmt.executeUpdate(sql);
         }
     } catch (IOException e) {
@@ -182,7 +164,8 @@ catch (Exception e) {
         ConH2.Conn();
         data = FXCollections.observableArrayList();
         try{
-            String SQL = "SELECT * from PATIENT WHERE AGE = 2";
+        //    String SQL = "SELECT * from PATIENT WHERE AGE = 2";
+            String SQL = "SELECT * from PATIENT";
             //ResultSet
             ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
 
@@ -190,7 +173,9 @@ catch (Exception e) {
              * TABLE COLUMN ADDED DYNAMICALLY *
              **********************************/
             //for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
-            for(int i=0 ; i<3; i++){
+
+            //ПЕРЕБОР ПО СТОЛБЦАМ ОТ 0 до Х
+            for(int i=0 ; i<5; i++){
                 //We are using non property style for making dynamic table
                 final int j = i;
                 TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));

@@ -20,7 +20,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
         window.setTitle("Врач");
-       // ЗАГРУЗИТЬ НАЗАД        sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")), 600,600);
+        //ЗАГРУЗИТЬ НАЗАД
+        //       sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")), 600,600);
        sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
         window.setScene(sceneOne);
         window.show();
