@@ -29,6 +29,7 @@ package PPRV;
         import java.util.ArrayList;
 
         import static java.awt.geom.Arc2D.OPEN;
+        import static java.lang.Integer.parseInt;
         import static java.sql.JDBCType.TIME;
         import static java.util.Calendar.DATE;
         import static javax.print.attribute.standard.PrintQuality.HIGH;
@@ -105,7 +106,7 @@ public class ControllerChief  {
         ObservableList selItem = (ObservableList) tableview.getSelectionModel().getSelectedItem();
 try {
     //id пациента
-    idPatient = Integer.parseInt(selItem.get(0).toString());
+    idPatient = parseInt(selItem.get(0).toString());
 }
 catch (Exception e) {}
 
@@ -123,12 +124,14 @@ catch (Exception e) {}
         }
     }
 
+    //удаление пациента
     private void delPatient() throws SQLException, ClassNotFoundException {
         String sql = "DELETE FROM PATIENT WHERE ID = " + idPatient;
         statmt.executeUpdate(sql);
         tableview.getColumns().clear();
         buildData();
     }
+
 
     private void loadPatient() throws SQLException, ClassNotFoundException {
         boolean patientNew = true;
@@ -157,7 +160,7 @@ catch (Exception e) {}
                 if (analyzes[0].equals(rs.getString(2))) {
                     patientNew = false;
 //                    System.out.println("СУЩЕСТВУЕТ");
-                }
+                }}
 
                 ResultSet rs2 = ConH2.conn.createStatement().executeQuery("SELECT * from ANALYSIS");
                 while (rs2.next()) {
@@ -172,27 +175,28 @@ catch (Exception e) {}
                     }}
 //
 //
-              }
 
-                if (analysisNew) {
-                    System.out.println("ID анализа: " + analyzes[3] + " , ID пациента: " + analyzes[0] + " А1: " + analyzes[4] + " B1: " + analyzes[5]);
-//                    String sql2 = "INSERT INTO ANALYSIS VALUES ('" + analyzes[3] +"', '" + analyzes[0] + "', '" + analyzes[4] + "', '" + analyzes[5] + "', '" + analyzes[6]  + "', '" + analyzes[7]   +"', '" + analyzes[8]   +"', '" + analyzes[9]   +"')";
-                    String sql2 = "INSERT INTO ANALYSIS VALUES ('" + analyzes[2] +"', '" + analyzes[0] + "', '" + analyzes[3] + "', '" + analyzes[4] +"', '" + analyzes[5] + "', '" + analyzes[6] +"', '" + analyzes[7] +"', '" + analyzes[8] +"', '" + analyzes[9] +"', '" + analyzes[10] +"')";
-                    statmt.executeUpdate(sql2);
 
                     if (patientNew) {
                         System.out.println("ID пациента: " + analyzes[0] + " , ФИО: " + analyzes[1]);
                         String sql = "INSERT INTO PATIENT VALUES (NULL, '" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[4] + "', '" + analyzes[2]  + "')";
                         statmt.executeUpdate(sql);
 
+                        if (analysisNew) {
+                            System.out.println("ID анализа: " + analyzes[2] + " , ID пациента: " + analyzes[0] + " А1: " + analyzes[4] + " B1: " + analyzes[5]);
+//                    String sql2 = "INSERT INTO ANALYSIS VALUES ('" + analyzes[3] +"', '" + analyzes[0] + "', '" + analyzes[4] + "', '" + analyzes[5] + "', '" + analyzes[6]  + "', '" + analyzes[7]   +"', '" + analyzes[8]   +"', '" + analyzes[9]   +"')";
+                            String sql2 = "INSERT INTO ANALYSIS VALUES ('" + analyzes[2] +"', '" + analyzes[0] + "', '" + analyzes[3] + "', '" + analyzes[4] +"', '" + analyzes[5] + "', '" + analyzes[6] +"', '" + analyzes[7] +"', '" + analyzes[8] +"', '" + analyzes[9] +"', '" + analyzes[10] +"')";
+                            statmt.executeUpdate(sql2);
 
-                        tableview.getColumns().clear();
-                        buildData();
+
+
                     } else {
                         System.out.println("СУЩ");
                     }
 
                 }
+            tableview.getColumns().clear();
+            buildData();
             }
 
     }
