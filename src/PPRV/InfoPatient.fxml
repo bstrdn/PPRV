@@ -14,7 +14,7 @@
     </Label>
     <Text fx:id="Text1" text="ЖДЫВАДЖОЫВ" GridPane.columnIndex="1" GridPane.rowIndex="12" />
     <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#Load" text="Нажми" />
-   <TableView prefHeight="374.0" prefWidth="301.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" GridPane.vgrow="ALWAYS">
+   <TableView fx:id="tvAn" prefHeight="374.0" prefWidth="301.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" GridPane.vgrow="ALWAYS">
       <GridPane.margin>
          <Insets />
       </GridPane.margin>

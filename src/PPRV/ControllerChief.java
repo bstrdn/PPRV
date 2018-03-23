@@ -126,7 +126,7 @@ catch (Exception e) {}
 
     //удаление пациента
     private void delPatient() throws SQLException, ClassNotFoundException {
-        String sql = "DELETE FROM PATIENT WHERE ID = " + idPatient;
+        String sql = "DELETE FROM PATIENT WHERE IDPATIENT = " + idPatient;
         statmt.executeUpdate(sql);
         tableview.getColumns().clear();
         buildData();
@@ -157,34 +157,27 @@ catch (Exception e) {}
 
             ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from PATIENT");
             while (rs.next()) {
-                if (analyzes[0].equals(rs.getString(2))) {
+                if (analyzes[0].equals(rs.getString(1))) {
                     patientNew = false;
 //                    System.out.println("СУЩЕСТВУЕТ");
                 }}
 
                 ResultSet rs2 = ConH2.conn.createStatement().executeQuery("SELECT * from ANALYSIS");
                 while (rs2.next()) {
-//                    System.out.println(rs2.getString(1));
-                    System.out.println("aaaaaaaa" + analyzes[2]);
-                    System.out.println("aaaaaaaa" + rs2.getString(1));
-
                     if (analyzes[2].equals(rs2.getString(1))) {
                         analysisNew = false;
-
                     System.out.println("СУЩЕСТВУЕТ");
                     }}
-//
-//
 
 
-                    if (patientNew) {
-                        System.out.println("ID пациента: " + analyzes[0] + " , ФИО: " + analyzes[1]);
-                        String sql = "INSERT INTO PATIENT VALUES (NULL, '" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[4] + "', '" + analyzes[2]  + "')";
-                        statmt.executeUpdate(sql);
 
+            if (patientNew) {
+                System.out.println("ID пациента: " + analyzes[0] + " , ФИО: " + analyzes[1]);
+                String sql = "INSERT INTO PATIENT VALUES ('" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[4] + "', '" + analyzes[2] + "')";
+                statmt.executeUpdate(sql);
+            }
                         if (analysisNew) {
-                            System.out.println("ID анализа: " + analyzes[2] + " , ID пациента: " + analyzes[0] + " А1: " + analyzes[4] + " B1: " + analyzes[5]);
-//                    String sql2 = "INSERT INTO ANALYSIS VALUES ('" + analyzes[3] +"', '" + analyzes[0] + "', '" + analyzes[4] + "', '" + analyzes[5] + "', '" + analyzes[6]  + "', '" + analyzes[7]   +"', '" + analyzes[8]   +"', '" + analyzes[9]   +"')";
+//                            System.out.println("ID анализа: " + analyzes[2] + " , ID пациента: " + analyzes[0] + " А1: " + analyzes[4] + " B1: " + analyzes[5]);
                             String sql2 = "INSERT INTO ANALYSIS VALUES ('" + analyzes[2] +"', '" + analyzes[0] + "', '" + analyzes[3] + "', '" + analyzes[4] +"', '" + analyzes[5] + "', '" + analyzes[6] +"', '" + analyzes[7] +"', '" + analyzes[8] +"', '" + analyzes[9] +"', '" + analyzes[10] +"')";
                             statmt.executeUpdate(sql2);
 
@@ -194,7 +187,7 @@ catch (Exception e) {}
                         System.out.println("СУЩ");
                     }
 
-                }
+
             tableview.getColumns().clear();
             buildData();
             }
@@ -220,7 +213,7 @@ catch (Exception e) {}
              **********************************/
             //for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
             //СОЗДАНИЕ СТОЛБЦОВ ПЕРЕБОР ПО СТОЛБЦАМ ОТ 0 до Х
-            for(int i=1 ; i<5; i++){
+            for(int i=0 ; i<4; i++){
                 //We are using non property style for making dynamic table
                 final int j = i;
                 TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));
