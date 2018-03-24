@@ -5,7 +5,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -23,6 +25,7 @@ public class ControllerInfoPatietn {
     @FXML private ObservableList<ObservableList> data;
     @FXML void Load () {}
     @FXML private TableView tvAn;
+    @FXML private Button btnDelAn;
 
 
 @FXML
@@ -48,8 +51,31 @@ public class ControllerInfoPatietn {
 
 
 
+    public void onClick(ActionEvent actionEvent) throws Exception {
+        Object source = actionEvent.getSource();
+        //если нажата не кнопка - выход из метода
+        if(!(source instanceof Button)) { return;}
+        Button clickedButton = (Button) source;
+
+        switch (clickedButton.getId()) {
+            case  "btnBack":
+                clickedButton.getScene().getWindow().hide();
+                break;
+            case "btnDelAn":
+//                delPatient();
+                break;
+//            case "btnView":
+//                System.out.println(selItem.get(0));
+//                new Main.InfoPatient(selItem.get(1).toString());
+//                break;
+        }
+    }
+
+public void btnDelAn()throws SQLException, ClassNotFoundException {
+    ConH2.Conn();
 
 
+}
 
 
     public void buildData() throws SQLException, ClassNotFoundException {

@@ -223,6 +223,7 @@ catch (Exception e) {}
                     }
                 });
                 tableview.getColumns().addAll(col);
+
                 System.out.println("Column ["+i+"] ");
             }
 

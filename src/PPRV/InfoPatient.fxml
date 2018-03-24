@@ -12,8 +12,8 @@
 <GridPane alignment="center" hgap="10" prefHeight="458.0" prefWidth="534.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PPRV.ControllerInfoPatietn">
     <Label fx:id="label12" style="-fx-font: NORMAL 20 Tahoma;" text="Пациенты" GridPane.rowIndex="1">
     </Label>
-    <Text fx:id="Text1" text="ЖДЫВАДЖОЫВ" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-    <Button fx:id="btnLoad" mnemonicParsing="false" onAction="#Load" text="Нажми" />
+    <Text fx:id="Text1" text="ЖДЫВАДЖОЫВ" visible="false" GridPane.rowIndex="12" />
+    <Button fx:id="btnBack" mnemonicParsing="false" onAction="#onClick" text="Нажми" />
    <TableView fx:id="tvAn" prefHeight="374.0" prefWidth="301.0" GridPane.columnSpan="2147483647" GridPane.hgrow="ALWAYS" GridPane.rowIndex="11" GridPane.vgrow="ALWAYS">
       <GridPane.margin>
          <Insets />
@@ -26,6 +26,7 @@
    <Label fx:id="label14" style="-fx-font: NORMAL 20 Tahoma;" text="Комментарий:" GridPane.rowIndex="5">
    </Label>
    <Text fx:id="Text3" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+   <Button fx:id="btnDelAn" mnemonicParsing="false" onAction="#onClick" text="Удалить" GridPane.columnIndex="1" GridPane.rowIndex="12" />
 
    <columnConstraints>
       <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="184.0" prefWidth="184.0" />
