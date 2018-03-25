@@ -135,6 +135,7 @@ public class Main extends Application {
             stage.setTitle(s);
             Scene sceneTwo = new Scene(FXMLLoader.load(getClass().getResource("InfoPatient.fxml")), 600,600);
             stage.setScene(sceneTwo);
+            sceneTwo.getStylesheets().add("my.css");
             stage.show();
         }
     }

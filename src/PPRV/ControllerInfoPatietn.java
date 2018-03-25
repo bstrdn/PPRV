@@ -7,15 +7,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+
+import static java.lang.Integer.parseInt;
 
 
 public class ControllerInfoPatietn {
@@ -26,6 +26,9 @@ public class ControllerInfoPatietn {
     @FXML void Load () {}
     @FXML private TableView tvAn;
     @FXML private Button btnDelAn;
+    public static Statement statmt;
+    public static int idAn;
+    private String[] colName = {"№Иссл.", "№ПАЦ", "Дата иссл.","sdf","Рост","Вес","Кровь","sdf","sdf","sdf"};
 
 
 @FXML
@@ -46,6 +49,9 @@ public class ControllerInfoPatietn {
    Text2.setText(rs.getString("RES"));
    Text3.setText(rs.getString("COMMENT"));
 
+
+
+
     buildData();
     }
 
@@ -62,7 +68,7 @@ public class ControllerInfoPatietn {
                 clickedButton.getScene().getWindow().hide();
                 break;
             case "btnDelAn":
-//                delPatient();
+                btnDelAn();
                 break;
 //            case "btnView":
 //                System.out.println(selItem.get(0));
@@ -72,8 +78,14 @@ public class ControllerInfoPatietn {
     }
 
 public void btnDelAn()throws SQLException, ClassNotFoundException {
+    ObservableList olAn = (ObservableList) tvAn.getSelectionModel().getSelectedItem();
+    idAn = parseInt(olAn.get(0).toString());
     ConH2.Conn();
-
+    String sql = "DELETE FROM ANALYSIS WHERE ID = " + idAn;
+    statmt = ConH2.conn.createStatement();
+    statmt.executeUpdate(sql);
+    tvAn.getColumns().clear();
+    buildData();
 
 }
 
@@ -82,27 +94,46 @@ public void btnDelAn()throws SQLException, ClassNotFoundException {
         ConH2.Conn();
         data = FXCollections.observableArrayList();
         try{
-            //    String SQL = "SELECT * from PATIENT WHERE AGE = 2";
             String SQL = "SELECT * from ANALYSIS";
             ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
-            /**********************************
-             * TABLE COLUMN ADDED DYNAMICALLY *
-             **********************************/
-            //for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
-            //СОЗДАНИЕ СТОЛБЦОВ ПЕРЕБОР ПО СТОЛБЦАМ ОТ 0 до Х
+            //СОЗДАНИЕ СТОЛБЦОВ ПЕРЕБОР ПО СТОЛБЦАМ ОТ X до Х
             for(int i=0 ; i<10; i++){
                 //We are using non property style for making dynamic table
                 final int j = i;
-                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));
+                //название колонок
+                TableColumn col = new TableColumn(colName[i]);
+
+                //цвет колонки
+                if (i == 1) {
+                    col.setStyle("-fx-background-color: green;");
+                }
                 col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList,String>,ObservableValue<String>>(){
                     public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
                         return new SimpleStringProperty(param.getValue().get(j).toString());
                     }
                 });
+
+//                col.setCellFactory(column -> {
+//                    return new TableCell() {
+//                        @Override
+//                        protected void updateItem(String text, boolean empty) {
+//                            super.updateItem(text, empty);
+//                            if (text == null || empty) {
+//                                setText(null);
+//                                setStyle("");
+//                            }
+//                            else {
+//                                setText();
+//                            }
+//                        }
+//                    }
+//                });
+
+
                 tvAn.getColumns().addAll(col);
+//                tvAn.getStylesheets().add("my.css");
                 System.out.println("Column ["+i+"] ");
             }
-
             /********************************
              * Data added to ObservableList *
              ********************************/
@@ -111,7 +142,10 @@ public void btnDelAn()throws SQLException, ClassNotFoundException {
                 ObservableList<String> row = FXCollections.observableArrayList();
                 for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
                     //Iterate Column
+
                     row.add(rs.getString(i));
+
+
                 }
                 System.out.println("Row [1] added "+row );
                 data.add(row);
@@ -120,6 +154,8 @@ public void btnDelAn()throws SQLException, ClassNotFoundException {
 
             //FINALLY ADDED TO TableView
             tvAn.setItems(data);
+
+
         }catch(Exception e){
             e.printStackTrace();
             System.out.println("Error on Building Data");
