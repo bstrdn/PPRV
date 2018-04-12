@@ -1,7 +1,5 @@
 package PPRV;
 
-import PPRV.ConH2;
-import PPRV.MUSOR.BasePatient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

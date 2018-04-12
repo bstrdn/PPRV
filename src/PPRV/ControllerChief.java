@@ -1,5 +1,6 @@
 package PPRV;
 
+        import javafx.beans.property.SimpleIntegerProperty;
         import javafx.beans.property.SimpleStringProperty;
         import javafx.beans.value.ChangeListener;
         import javafx.beans.value.ObservableValue;
@@ -11,6 +12,8 @@ package PPRV;
         import javafx.scene.control.Button;
         import javafx.scene.control.Label;
         import javafx.scene.control.TextField;
+        import javafx.scene.control.cell.PropertyValueFactory;
+        import javafx.scene.paint.Color;
         import javafx.scene.text.Text;
         import javafx.stage.FileChooser;
         import javafx.stage.Stage;
@@ -40,6 +43,8 @@ package PPRV;
 
 public class ControllerChief  {
 
+    @FXML private TableView tvTEST;
+
     @FXML private Label label1;
     @FXML private TableView tableview;
     @FXML private ObservableList<ObservableList> data;
@@ -49,6 +54,31 @@ public class ControllerChief  {
     public static Statement statmt;
     public static Connection conn;
     public static int idPatient;
+    public static int idPatient2;
+
+
+    @FXML private ObservableList<BasePatient> data2;
+//    public static Connection conn;
+    @FXML
+    TableColumn<BasePatient, String> colId;
+    @FXML
+    TableColumn<BasePatient, String> colUserName;
+    @FXML
+    TableColumn<BasePatient, String> colAge;
+    @FXML
+    TableColumn<BasePatient, String> colLo;
+
+
+
+
+
+
+
+
+
+
+
+
 
     File file;
 
@@ -56,10 +86,18 @@ public class ControllerChief  {
     private void initialize() throws Exception {
         //label1.setText("I'm a Label.");        //tableview = new TableView();//        choiceBox = new ChoiceBox(FXCollections.observableArrayList(
 ////                "First", "Second", "Third")      );
-//
+        ConH2.Conn();
+        colId.setCellValueFactory(
+                new PropertyValueFactory<BasePatient, String>("userId"));
+        colUserName.setCellValueFactory(
+                new PropertyValueFactory<BasePatient, String>("userName"));
+        colAge.setCellValueFactory(new PropertyValueFactory<BasePatient, String>("userAge"));
+        colLo.setCellValueFactory(
+                new PropertyValueFactory<BasePatient, String>("userLO"));
+
 
         //загрузка операций в выподающий список
-        ConH2.Conn();
+
         data = FXCollections.observableArrayList();
         ArrayList<String> oper = new ArrayList<>();
             String SQL = "SELECT * from OPERATIONS";
@@ -75,8 +113,54 @@ public class ControllerChief  {
 
 
         //перестроение списка
-        buildData();
+       // buildData();
+        buildData1();
     }
+
+    public void buildData1() throws SQLException, ClassNotFoundException {
+        data2 = FXCollections.observableArrayList();
+        String SQL = "SELECT * FROM PATIENT";
+        ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
+
+        while (rs.next()) {
+            BasePatient cm = new BasePatient();
+            cm.userId.set(rs.getInt("IDPATIENT"));
+            System.out.println(rs.getInt("IDPATIENT"));
+            cm.userName.set(rs.getString("NAME"));
+            cm.userAge.set(rs.getString("AGE"));
+            cm.userLO.set(rs.getString("LASTOPERATION"));
+            data2.add(cm);
+        }
+
+        colAge.setCellFactory(column -> {
+            return new TableCell<BasePatient, String>() {
+                @Override
+                protected void updateItem(String item, boolean empty) {
+                    super.updateItem(item, empty);
+
+                    if (item == null || empty) {
+                        setText(null);
+                        setStyle("");
+                    } else {
+                        // Format date.
+                        setText(item);
+                        // Style all dates in March with a different color.
+                        if (item.equals("2")) {
+                            setTextFill(javafx.scene.paint.Color.CHOCOLATE);
+                            setStyle("-fx-background-color: yellow");
+                        } else {
+                            setTextFill(Color.BLACK);
+                            setStyle("");
+                        }
+                    }
+                }
+            };
+        });
+
+      tvTEST.setItems(data2);
+    }
+
+
 
     public void onClick(ActionEvent actionEvent) throws Exception {
 
@@ -103,12 +187,19 @@ public class ControllerChief  {
         Button clickedButton = (Button) source;
 
         //
-        ObservableList selItem = (ObservableList) tableview.getSelectionModel().getSelectedItem();
+      //  ObservableList selItem = (ObservableList) tableview.getSelectionModel().getSelectedItem();
+     //   ObservableList selItem2 = (ObservableList) tvTEST.getSelectionModel().getSelectedItem();
+        BasePatient selItem2 = (BasePatient) tvTEST.getSelectionModel().getSelectedItem();
+
 try {
     //id пациента
-    idPatient = parseInt(selItem.get(0).toString());
+  //  idPatient = parseInt(selItem.get(0).toString());
+   // idPatient2 = parseInt(selItem2.get(0).toString());
+    idPatient2 = selItem2.userId.getValue();
 }
-catch (Exception e) {}
+catch (Exception e) {
+    System.out.println("айди не получен");
+}
 
         switch (clickedButton.getId()) {
             case  "btnLoad":
@@ -118,18 +209,24 @@ catch (Exception e) {}
                 delPatient();
                 break;
             case "btnView":
-                System.out.println(selItem.get(0));
-                new Main.InfoPatient(selItem.get(1).toString());
-                break;
+              //  System.out.println(idPatient2);
+                System.out.println(idPatient2);
+                new Main.InfoPatient(selItem2.userName.getValue());
+//                break;
         }
     }
 
     //удаление пациента
     private void delPatient() throws SQLException, ClassNotFoundException {
-        String sql = "DELETE FROM PATIENT WHERE IDPATIENT = " + idPatient;
+        String sql = "DELETE FROM PATIENT WHERE IDPATIENT = " + idPatient2;
         statmt.executeUpdate(sql);
-        tableview.getColumns().clear();
-        buildData();
+       // tableview.getColumns().clear();
+       // tvTEST.getColumns().clear();
+//tvTEST.refresh();
+data2.clear();
+      //  tableview.getColumns().clear();
+      //  buildData();
+        buildData1();
     }
 
 
@@ -188,8 +285,10 @@ catch (Exception e) {}
                     }
 
 
-            tableview.getColumns().clear();
-            buildData();
+                    data2.clear();
+                buildData1();
+//            tableview.getColumns().clear();
+//            buildData();
             }
 
     }
@@ -200,56 +299,56 @@ catch (Exception e) {}
     }
 }
 
-
-    public void buildData() throws SQLException, ClassNotFoundException {
-        ConH2.Conn();
-        data = FXCollections.observableArrayList();
-        try{
-        //    String SQL = "SELECT * from PATIENT WHERE AGE = 2";
-            String SQL = "SELECT * from PATIENT";
-            ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
-            /**********************************
-             * TABLE COLUMN ADDED DYNAMICALLY *
-             **********************************/
-            //for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
-            //СОЗДАНИЕ СТОЛБЦОВ ПЕРЕБОР ПО СТОЛБЦАМ ОТ 0 до Х
-            for(int i=0 ; i<4; i++){
-                //We are using non property style for making dynamic table
-                final int j = i;
-                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));
-                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList,String>,ObservableValue<String>>(){
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
-                        return new SimpleStringProperty(param.getValue().get(j).toString());
-                    }
-                });
-                tableview.getColumns().addAll(col);
-
-                System.out.println("Column ["+i+"] ");
-            }
-
-            /********************************
-             * Data added to ObservableList *
-             ********************************/
-            while(rs.next()){
-                //Iterate Row
-                ObservableList<String> row = FXCollections.observableArrayList();
-                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
-                    //Iterate Column
-                    row.add(rs.getString(i));
-                }
-                System.out.println("Row [1] added "+row );
-                data.add(row);
-
-
-            }
-
-            //FINALLY ADDED TO TableView
-            tableview.setItems(data);
-        }catch(Exception e){
-            e.printStackTrace();
-            System.out.println("Error on Building Data");
-        }
-    }
+//СТАРАЯ ЗАГРУЗКА ПАЦИЕНТОВ
+//    public void buildData() throws SQLException, ClassNotFoundException {
+//        ConH2.Conn();
+//        data = FXCollections.observableArrayList();
+//        try{
+//        //    String SQL = "SELECT * from PATIENT WHERE AGE = 2";
+//            String SQL = "SELECT * from PATIENT";
+//            ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
+//            /**********************************
+//             * TABLE COLUMN ADDED DYNAMICALLY *
+//             **********************************/
+//            //for(int i=0 ; i<rs.getMetaData().getColumnCount(); i++){
+//            //СОЗДАНИЕ СТОЛБЦОВ ПЕРЕБОР ПО СТОЛБЦАМ ОТ 0 до Х
+//            for(int i=0 ; i<4; i++){
+//                //We are using non property style for making dynamic table
+//                final int j = i;
+//                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i+1));
+//                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList,String>,ObservableValue<String>>(){
+//                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+//                        return new SimpleStringProperty(param.getValue().get(j).toString());
+//                    }
+//                });
+//                tableview.getColumns().addAll(col);
+//
+//                System.out.println("Column ["+i+"] ");
+//            }
+//
+//            /********************************
+//             * Data added to ObservableList *
+//             ********************************/
+//            while(rs.next()){
+//                //Iterate Row
+//                ObservableList<String> row = FXCollections.observableArrayList();
+//                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
+//                    //Iterate Column
+//                    row.add(rs.getString(i));
+//                }
+//                System.out.println("Row [1] added "+row );
+//                data.add(row);
+//
+//
+//            }
+//
+//            //FINALLY ADDED TO TableView
+//            tableview.setItems(data);
+//        }catch(Exception e){
+//            e.printStackTrace();
+//            System.out.println("Error on Building Data");
+//        }
+//    }
 
 
 

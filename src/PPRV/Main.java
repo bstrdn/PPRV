@@ -23,9 +23,9 @@ public class Main extends Application {
         //ЗАГРУЗИТЬ НАЗАД
         //       sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")), 600,600);
       //РАБОЧИЙ ВАРИАНТ
-     //  sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
+       sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
      //TEST
-        sceneOne = new Scene(FXMLLoader.load(getClass().getResource("TESTchief.fxml")), 600,600);
+       // sceneOne = new Scene(FXMLLoader.load(getClass().getResource("TESTchief.fxml")), 600,600);
 
         window.setScene(sceneOne);
         window.show();
@@ -137,7 +137,7 @@ public class Main extends Application {
            // Main.idPatient = idPatient;
             Stage stage = new Stage();
             stage.setTitle(s);
-            Scene sceneTwo = new Scene(FXMLLoader.load(getClass().getResource("InfoPatient.fxml")), 600,600);
+            Scene sceneTwo = new Scene(FXMLLoader.load(getClass().getResource("InfoPatient.fxml")), 1000,800);
             stage.setScene(sceneTwo);
             sceneTwo.getStylesheets().add("my.css");
             stage.show();
