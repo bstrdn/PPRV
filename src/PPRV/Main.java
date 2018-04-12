@@ -22,7 +22,11 @@ public class Main extends Application {
         window.setTitle("Врач");
         //ЗАГРУЗИТЬ НАЗАД
         //       sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")), 600,600);
-       sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
+      //РАБОЧИЙ ВАРИАНТ
+     //  sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
+     //TEST
+        sceneOne = new Scene(FXMLLoader.load(getClass().getResource("TESTchief.fxml")), 600,600);
+
         window.setScene(sceneOne);
         window.show();
   //      initRootLayout();

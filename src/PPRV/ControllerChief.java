@@ -240,6 +240,7 @@ catch (Exception e) {}
                 System.out.println("Row [1] added "+row );
                 data.add(row);
 
+
             }
 
             //FINALLY ADDED TO TableView
