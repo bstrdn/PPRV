@@ -14,16 +14,17 @@ public class Main extends Application {
     public static Stage window;
     public Scene sceneOne, sceneTwo;
     public static int idPatient;
+    public static String namePatient;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
-        window.setTitle("Врач");
+        window.setTitle("Вход в систему");
         //ЗАГРУЗИТЬ НАЗАД
-        //       sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")), 600,600);
+               sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")), 400,300);
       //РАБОЧИЙ ВАРИАНТ
-       sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
+   //    sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
      //TEST
        // sceneOne = new Scene(FXMLLoader.load(getClass().getResource("TESTchief.fxml")), 600,600);
 
@@ -98,7 +99,7 @@ public class Main extends Application {
         {
             Stage stage = new Stage();
             stage.setTitle("Администрирование");
-            Scene sceneTwo = new Scene(FXMLLoader.load(getClass().getResource("Admin.fxml")), 600,600);
+            Scene sceneTwo = new Scene(FXMLLoader.load(getClass().getResource("Admin.fxml")), 500,700);
             stage.setScene(sceneTwo);
             stage.show();
         }
@@ -123,17 +124,18 @@ public class Main extends Application {
         {
             Stage stage = new Stage();
             stage.setTitle("Пациенты :: Доктор");
-            Scene sceneTwo = new Scene(FXMLLoader.load(getClass().getResource("Admin.fxml")), 600,600);
+            Scene sceneTwo = new Scene(FXMLLoader.load(getClass().getResource("Doctor.fxml")), 600,600);
             stage.setScene(sceneTwo);
             stage.show();
         }
     }
 
     public static class InfoPatient {
-
-       // public InfoPatient(int idPatient) throws Exception
-        public InfoPatient(String s) throws Exception
+               // public InfoPatient(int idPatient) throws Exception
+        public InfoPatient(String s, int t) throws Exception
         {
+            idPatient = t;
+            namePatient = s;
            // Main.idPatient = idPatient;
             Stage stage = new Stage();
             stage.setTitle(s);

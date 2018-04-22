@@ -8,6 +8,7 @@ public class Study {
 
     public SimpleIntegerProperty studyId = new SimpleIntegerProperty();
     public SimpleIntegerProperty studyIdPatient = new SimpleIntegerProperty();
+    public SimpleStringProperty studyIdName = new SimpleStringProperty();
     public SimpleStringProperty studyDate = new SimpleStringProperty();
     public SimpleStringProperty studyA1 = new SimpleStringProperty();
     public SimpleStringProperty studyA2 = new SimpleStringProperty();
@@ -25,8 +26,10 @@ public class Study {
         return studyIdPatient.get();
     }
 
-    public String getStudyDate() {
-        return studyDate.get();
+    public String getStudyIdName () {
+        return studyIdName.get();
+    }
+    public String getStudyDate() { return studyDate.get();
     }
 
     public String getStudyA1() {

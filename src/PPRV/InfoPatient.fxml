@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -10,37 +11,40 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane hgap="10.0" maxHeight="500.0" maxWidth="901.0" minHeight="500.0" minWidth="800.0" prefHeight="467.0" prefWidth="901.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PPRV.ControllerInfoPatient">
-    <Label fx:id="label12" style="-fx-font: NORMAL 20 Tahoma;" text="Пациенты" GridPane.rowIndex="1">
+<GridPane hgap="10.0" maxHeight="500.0" maxWidth="901.0" minHeight="400.0" minWidth="800.0" prefHeight="467.0" prefWidth="901.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PPRV.ControllerInfoPatient">
+    <Label fx:id="label12" style="-fx-font: NORMAL 20 Tahoma;" text="Пациенты" GridPane.columnIndex="1" GridPane.rowIndex="1">
     </Label>
-    <Text fx:id="Text1" text="ЖДЫВАДЖОЫВ" visible="false" GridPane.rowIndex="7" />
-    <Button fx:id="btnBack" mnemonicParsing="false" onAction="#onClick" text="Нажми" />
+    <Text fx:id="Text1" text="ЖДЫВАДЖОЫВ" visible="false" GridPane.rowIndex="5" />
+    <Button fx:id="btnBack" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="96.0" text="Закрыть окно" textAlignment="CENTER">
+      <GridPane.margin>
+         <Insets />
+      </GridPane.margin></Button>
 
-   <Label fx:id="label13" style="-fx-font: NORMAL 20 Tahoma;" text="Решение:" GridPane.rowIndex="3">
+   <Label fx:id="label13" style="-fx-font: NORMAL 20 Tahoma;" text="Решение:" GridPane.rowIndex="2">
    </Label>
-   <Text fx:id="Text2" text="решение отсутствует" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-   <Label fx:id="label14" style="-fx-font: NORMAL 20 Tahoma;" text="Комментарий:" GridPane.rowIndex="5">
+   <Text fx:id="Text2" text="решение отсутствует" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   <Label fx:id="label14" style="-fx-font: NORMAL 20 Tahoma;" text="Комментарий:" GridPane.rowIndex="3">
    </Label>
-   <Text fx:id="Text3" text="" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-   <Button fx:id="btnDelAn" mnemonicParsing="false" onAction="#onClick" text="Удалить" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-   <TableView fx:id="tvAn1" layoutX="10.0" layoutY="220.0" prefHeight="374.0" prefWidth="301.0" GridPane.columnSpan="2" GridPane.rowIndex="6">
+   <Text fx:id="Text3" text="" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+   <Button fx:id="btnDelAn" mnemonicParsing="false" onAction="#onClick" text="Удалить" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+   <TableView fx:id="tvAn1" layoutX="10.0" layoutY="220.0" prefHeight="374.0" prefWidth="301.0" GridPane.columnSpan="2" GridPane.rowIndex="4">
       <columns>
       <TableColumn fx:id="colId" prefWidth="59.0" text="№ИССЛ" />
          <TableColumn fx:id="colIdPatient" prefWidth="59.0" text="ID ПАЦ" />
          <TableColumn fx:id="colDate" prefWidth="59.0" text="Дата иссл." />
-         <TableColumn fx:id="colA1" prefWidth="59.0" text="ID" />
+         <TableColumn fx:id="colA1" prefWidth="59.0" text="Возраст" />
          <TableColumn fx:id="colA2" prefWidth="59.0" text="Рост" />
          <TableColumn fx:id="colA3" prefWidth="59.0" text="Вес" />
-         <TableColumn fx:id="colB1" prefWidth="59.0" text="Кровь" />
-         <TableColumn fx:id="colC1" prefWidth="59.0" text="ID" />
-         <TableColumn fx:id="colC2" prefWidth="59.0" text="ID" />
-         <TableColumn fx:id="colD1" prefWidth="59.0" text="ID" />
+         <TableColumn fx:id="colB1" prefWidth="59.0" text="Кровь на тромб." />
+         <TableColumn fx:id="colC1" prefWidth="59.0" text="Кровь время сверт." />
+         <TableColumn fx:id="colC2" prefWidth="59.0" text="Кровь длительность кровот." />
+         <TableColumn fx:id="colD1" prefWidth="59.0" text="Кровь группа, резус фактор" />
       </columns>
 </TableView>
    <ListView fx:id="lvPatient" prefHeight="400.0" prefWidth="400.0" GridPane.columnIndex="2" GridPane.rowSpan="7" />
    <columnConstraints>
-      <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="184.0" prefWidth="192.0" />
-      <ColumnConstraints hgrow="ALWAYS" maxWidth="349.0" minWidth="130.0" prefWidth="254.0" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="149.0" prefWidth="149.0" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="349.0" minWidth="130.0" prefWidth="298.0" />
       <ColumnConstraints hgrow="ALWAYS" maxWidth="481.0" minWidth="130.0" prefWidth="434.0" />
    </columnConstraints>
    <rowConstraints>
@@ -48,10 +52,9 @@
       <RowConstraints vgrow="ALWAYS" />
       <RowConstraints />
       <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
       <RowConstraints vgrow="ALWAYS" />
       <RowConstraints vgrow="ALWAYS" />
+      <RowConstraints />
    </rowConstraints>
 
 

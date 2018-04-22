@@ -8,7 +8,7 @@
 }
 
 .table-row-cell:selected{
-    -fx-background-color: chocolate;
+    -fx-background-color: #ff0009;
 }
 
 .table-row-cell.test{

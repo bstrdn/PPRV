@@ -23,7 +23,7 @@ import static java.lang.Integer.parseInt;
 
 public class ControllerInfoPatient {
     @FXML public ListView lvPatient;
-    private int idPatient;
+   // private int idPatient;
     @FXML private Label label12;
     @FXML Text Text1, Text2, Text3;
   //  @FXML private ObservableList<ObservableList> data;
@@ -73,6 +73,7 @@ public class ControllerInfoPatient {
                 int idSelected = data2.get(((TablePosition) selectedCells.get(0)).getRow()).studyId.getValue();
 
                 try {
+
                     buildLV(idSelected);
                 } catch (SQLException e) {
                     e.printStackTrace();
@@ -86,7 +87,7 @@ public class ControllerInfoPatient {
 
 
     colId.setCellValueFactory(new PropertyValueFactory<Study, String>("studyId"));
-    colIdPatient.setCellValueFactory(new PropertyValueFactory<Study, String>("studyIdPatient"));
+    colIdPatient.setCellValueFactory(new PropertyValueFactory<Study, String>("studyIdName"));
     colDate.setCellValueFactory(new PropertyValueFactory<Study, String>("studyDate"));
     colA1.setCellValueFactory(new PropertyValueFactory<Study, String>("studyA1"));
     colA2.setCellValueFactory(new PropertyValueFactory<Study, String>("studyA2"));
@@ -104,13 +105,13 @@ public class ControllerInfoPatient {
 
 
         //idPatient = JavaFX_TestTableView.idPatien;
-        idPatient = ControllerChief.idPatient;
-        label12.setText(String.valueOf(idPatient));
+       // idPatient = ControllerChief.idPatient;
+        label12.setText(Main.namePatient);
 //        text1.setText("111111111111");
 
     //ConH2.Conn();
     //data = FXCollections.observableArrayList();
-    String SQL = "SELECT * from RESULT WHERE ID = 2";
+    String SQL = "SELECT * from RESULT WHERE ID = " + 3;
     ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
     //String ddd= ConH2.conn.createStatement().executeQuery(SQL).getString("RES");
     //System.out.println(ddd);
@@ -126,37 +127,52 @@ public class ControllerInfoPatient {
     buildData1();
     }
 
+    //ПОСТРОЕНИЕ ЛИСТВЬЮ
     public void buildLV(int a) throws SQLException, ClassNotFoundException {
-
         System.out.println(a);
-
         ConH2.Conn();
         String SQL = "SELECT * FROM ANALYSIS WHERE ID =" + a;
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
         rs.next();
         System.out.println(rs.getString("DATE"));
 
-        lvAn.add("первый");
-        lvAn.add("первый");
-        lvAn.add("первый");
-        lvAn.add("первый");
-        lvAn.add("первый");
-        lvAn.add("первый");
-        lvPatient.getItems().add(lvAn);
-        lvPatient.getItems().add("dsfsdf");
+        lvPatient.getItems().clear();
+
+        lvPatient.getItems().add(0,"Возраст: " + rs.getString("A1"));
+        lvPatient.getItems().add("");
+        lvPatient.getItems().add(2, "Вес: " + rs.getString("A2"));
+
+        lvPatient.getItems().add("");
+        lvPatient.getItems().add("Рост: " + rs.getString("A3"));
+        lvPatient.getItems().add("");
+        lvPatient.getItems().add("Анализ крови на тромбоциты: " + rs.getString("B1"));
+        lvPatient.getItems().add("");
+        lvPatient.getItems().add("Время свертываеости крови: " + rs.getString("C1"));
+        lvPatient.getItems().add("");
+        lvPatient.getItems().add("Длительность кровотечения: " + rs.getString("C2"));
+        lvPatient.getItems().add("");
+        lvPatient.getItems().add("Группа крови и резус фактор: " + rs.getString("D1"));
+        lvPatient.getItems().add("");
+
+
+       // lvPatient.getItems().add(lvAn);
+       // lvPatient.getItems().add("dsfsdf");
     }
 
-
+//ВЫВОД АНАЛИЗОВ
 
     public void buildData1() throws SQLException, ClassNotFoundException {
         data2 = FXCollections.observableArrayList();
-        String SQL = "SELECT * FROM ANALYSIS";
-        ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
+        String SQL = "SELECT * FROM ANALYSIS WHERE ID =" + Main.idPatient;
+        String SQL2 = "SELECT ID,NAME,DATE,A1,A2,A3,B1,C1,C2,D1\n" +
+                "FROM ANALYSIS,PATIENT\n" +
+                "WHERE ANALYSIS.IDPATIENT = PATIENT.IDPATIENT AND PATIENT.IDPATIENT =" + Main.idPatient;
+        ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL2);
 
         while (rs.next()) {
             Study cm = new Study();
             cm.studyId.set(rs.getInt("ID"));
-            cm.studyIdPatient.set(rs.getInt("IDPATIENT"));
+            cm.studyIdName.set(rs.getString("NAME"));
             cm.studyDate.set(rs.getString("DATE"));
             cm.studyA1.set(rs.getString("A1"));
             cm.studyA2.set(rs.getString("A2"));
@@ -230,79 +246,5 @@ public void btnDelAn()throws SQLException, ClassNotFoundException {
     data2.clear();
     buildData1();
 
-}
-
-//старая таблица
-//    public void buildData() throws SQLException, ClassNotFoundException {
-//        ConH2.Conn();
-//        data = FXCollections.observableArrayList();
-//        try{
-//            String SQL = "SELECT * from ANALYSIS";
-//            ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
-//            //СОЗДАНИЕ СТОЛБЦОВ ПЕРЕБОР ПО СТОЛБЦАМ ОТ X до Х
-//            for(int i=0 ; i<10; i++){
-//                //We are using non property style for making dynamic table
-//                final int j = i;
-//                //название колонок
-//                TableColumn col = new TableColumn(colName[i]);
-//
-//                //цвет колонки
-//                if (i == 1) {
-//                    col.setStyle("-fx-background-color: green;");
-//                }
-//                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList,String>,ObservableValue<String>>(){
-//                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
-//                        return new SimpleStringProperty(param.getValue().get(j).toString());
-//                    }
-//                });
-//
-////                col.setCellFactory(column -> {
-////                    return new TableCell() {
-////                        @Override
-////                        protected void updateItem(String text, boolean empty) {
-////                            super.updateItem(text, empty);
-////                            if (text == null || empty) {
-////                                setText(null);
-////                                setStyle("");
-////                            }
-////                            else {
-////                                setText();
-////                            }
-////                        }
-////                    }
-////                });
-//
-//
-//                tvAn.getColumns().addAll(col);
-////                tvAn.getStylesheets().add("my.css");
-//                System.out.println("Column ["+i+"] ");
-//            }
-//            /********************************
-//             * Data added to ObservableList *
-//             ********************************/
-//            while(rs.next()){
-//                //Iterate Row
-//                ObservableList<String> row = FXCollections.observableArrayList();
-//                for(int i=1 ; i<=rs.getMetaData().getColumnCount(); i++){
-//                    //Iterate Column
-//
-//                    row.add(rs.getString(i));
-//
-//
-//                }
-//                System.out.println("Row [1] added "+row );
-//                data.add(row);
-//
-//            }
-//
-//            //FINALLY ADDED TO TableView
-//            tvAn.setItems(data);
-//
-//
-//        }catch(Exception e){
-//            e.printStackTrace();
-//            System.out.println("Error on Building Data");
-//        }
-//    }
-
+    }
 }

@@ -59,14 +59,11 @@ public class ControllerChief  {
 
     @FXML private ObservableList<BasePatient> data2;
 //    public static Connection conn;
-    @FXML
-    TableColumn<BasePatient, String> colId;
-    @FXML
-    TableColumn<BasePatient, String> colUserName;
-    @FXML
-    TableColumn<BasePatient, String> colAge;
-    @FXML
-    TableColumn<BasePatient, String> colLo;
+    @FXML TableColumn<BasePatient, String> colId;
+    @FXML TableColumn<BasePatient, String> colUserName;
+    @FXML TableColumn<BasePatient, String> colAge;
+    @FXML TableColumn<BasePatient, String> colLo;
+    @FXML TableColumn<BasePatient, String> colAdd;
 
 
 
@@ -87,29 +84,27 @@ public class ControllerChief  {
         //label1.setText("I'm a Label.");        //tableview = new TableView();//        choiceBox = new ChoiceBox(FXCollections.observableArrayList(
 ////                "First", "Second", "Third")      );
         ConH2.Conn();
-        colId.setCellValueFactory(
-                new PropertyValueFactory<BasePatient, String>("userId"));
-        colUserName.setCellValueFactory(
-                new PropertyValueFactory<BasePatient, String>("userName"));
+        colId.setCellValueFactory(new PropertyValueFactory<BasePatient, String>("userId"));
+        colUserName.setCellValueFactory(new PropertyValueFactory<BasePatient, String>("userName"));
         colAge.setCellValueFactory(new PropertyValueFactory<BasePatient, String>("userAge"));
-        colLo.setCellValueFactory(
-                new PropertyValueFactory<BasePatient, String>("userLO"));
+        colLo.setCellValueFactory(new PropertyValueFactory<BasePatient, String>("userLO"));
+        colAdd.setCellValueFactory(new PropertyValueFactory<BasePatient, String>("userAdd"));
 
 
         //загрузка операций в выподающий список
-
         data = FXCollections.observableArrayList();
         ArrayList<String> oper = new ArrayList<>();
             String SQL = "SELECT * from OPERATIONS";
             //ResultSet
             ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
            while (rs.next()) {
-                oper.add(rs.getString("NAME"));
-                System.out.println(rs.getString("NAME"));
+                oper.add(rs.getString("OPERATION_NAME"));
+                System.out.println(rs.getString("OPERATION_NAME"));
            }
         choiceBox.setItems(FXCollections.observableArrayList(
                 oper)
         );
+        choiceBox.getSelectionModel().select(0);
 
 
         //перестроение списка
@@ -120,15 +115,20 @@ public class ControllerChief  {
     public void buildData1() throws SQLException, ClassNotFoundException {
         data2 = FXCollections.observableArrayList();
         String SQL = "SELECT * FROM PATIENT";
-        ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
+        String SQL2 = "SELECT\n" +
+                "  IDPATIENT, PATIENT.NAME, AGE, OPERATIONS.OPERATION_NAME, FIO\n" +
+                "FROM PATIENT, OPERATIONS, USERS\n" +
+                "WHERE PATIENT.LASTOPERATION=OPERATIONS.ID AND PATIENT.IDDOCTOR=USERS.ID\n" +
+                "ORDER BY IDPATIENT";
+        ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL2);
 
         while (rs.next()) {
             BasePatient cm = new BasePatient();
             cm.userId.set(rs.getInt("IDPATIENT"));
-            System.out.println(rs.getInt("IDPATIENT"));
             cm.userName.set(rs.getString("NAME"));
             cm.userAge.set(rs.getString("AGE"));
-            cm.userLO.set(rs.getString("LASTOPERATION"));
+            cm.userLO.set(rs.getString("OPERATION_NAME"));
+            cm.userAdd.set(rs.getString("FIO"));
             data2.add(cm);
         }
 
@@ -174,6 +174,7 @@ public class ControllerChief  {
             }
         });
 
+
        // String option = choiceBox.getValue().toString();
        // System.out.println(option);
 
@@ -211,7 +212,7 @@ catch (Exception e) {
             case "btnView":
               //  System.out.println(idPatient2);
                 System.out.println(idPatient2);
-                new Main.InfoPatient(selItem2.userName.getValue());
+                new Main.InfoPatient(selItem2.userName.getValue(), selItem2.userId.getValue());
 //                break;
         }
     }

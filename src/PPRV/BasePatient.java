@@ -10,6 +10,7 @@ public class BasePatient {
     public SimpleStringProperty userName = new SimpleStringProperty();
     public SimpleStringProperty userAge = new SimpleStringProperty();
     public SimpleStringProperty userLO = new SimpleStringProperty();
+    public SimpleStringProperty userAdd = new SimpleStringProperty();
 
 
     public Integer getUserId() {
@@ -26,6 +27,8 @@ public class BasePatient {
 
     public String getUserLO() {
         return userLO.get();
+    }
+    public String getUserAdd() {return userAdd.get();
     }
 
 }
