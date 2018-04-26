@@ -51,6 +51,7 @@ public class ControllerChief  {
     @FXML private Button btnLoad;
     @FXML private ChoiceBox choiceBox;
     @FXML private TextField tf12;
+    @FXML private TextField tfFIO;
     public static Statement statmt;
     public static Connection conn;
     public static int idPatient;
@@ -250,7 +251,7 @@ data2.clear();
         while ((line = br.readLine()) != null) {
             // use comma as separator
             String[] analyzes = line.split(cvsSplitBy);
-
+            tfFIO.setText(analyzes[1]);
 //            if (analyzes[0].equals())
 
             ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from PATIENT");
@@ -271,7 +272,7 @@ data2.clear();
 
             if (patientNew) {
                 System.out.println("ID пациента: " + analyzes[0] + " , ФИО: " + analyzes[1]);
-                String sql = "INSERT INTO PATIENT VALUES ('" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[4] + "', '" + analyzes[2] + "')";
+                String sql = "INSERT INTO PATIENT VALUES ('" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[4] + "', '" + analyzes[2] + "', '" + analyzes[11] +"')";
                 statmt.executeUpdate(sql);
             }
                         if (analysisNew) {
