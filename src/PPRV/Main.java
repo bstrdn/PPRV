@@ -15,16 +15,17 @@ public class Main extends Application {
     public Scene sceneOne, sceneTwo;
     public static int idPatient;
     public static String namePatient;
+    public static String attention = "";
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         window = primaryStage;
         window.setTitle("Вход в систему");
-        //ЗАГРУЗИТЬ НАЗАД
+        //ЗАГРУЗИТЬ НАЗАД //РАБОЧИЙ ВАРИАНТ
                sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")), 400,300);
-      //РАБОЧИЙ ВАРИАНТ
-   //    sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
+
+      // sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
      //TEST
        // sceneOne = new Scene(FXMLLoader.load(getClass().getResource("TESTchief.fxml")), 600,600);
 
@@ -142,6 +143,19 @@ public class Main extends Application {
             Scene sceneTwo = new Scene(FXMLLoader.load(getClass().getResource("InfoPatient.fxml")), 1000,800);
             stage.setScene(sceneTwo);
             sceneTwo.getStylesheets().add("my.css");
+            stage.show();
+        }
+    }
+
+    public static class info {
+
+        public info(String s) throws Exception
+        {
+            attention = s;
+            Stage stage = new Stage();
+            stage.setTitle("Информация");
+            Scene sceneTwo = new Scene(FXMLLoader.load(getClass().getResource("info.fxml")), 300,200);
+            stage.setScene(sceneTwo);
             stage.show();
         }
     }

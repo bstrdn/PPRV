@@ -27,7 +27,7 @@
    </Label>
    <Label text="ФИО" GridPane.columnIndex="2" GridPane.rowIndex="1" />
    <Label text="Операция" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="902.0" text="Загрузить" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+   <Button fx:id="btnLoad2" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="902.0" text="Загрузить" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    <Label text="Анализы (*.CSV)" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    <TableView fx:id="tvTEST" prefHeight="113.0" prefWidth="319.0" GridPane.columnSpan="3" GridPane.rowIndex="8">
      <columns>

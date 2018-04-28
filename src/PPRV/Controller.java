@@ -22,11 +22,12 @@ public class Controller  implements Initializable {
     @FXML PasswordField PW1;
     String login;
     String password;
+    static int id;
 
     @FXML protected void handleSubmitButtonAction(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
        login = TF1.getText();
        password = PW1.getText();
-        int role = db.LogIn(login, password);
+        int role = ConH2.LogIn(login, password);
 
        if(role == 1) {
            btn1.getScene().getWindow().hide();
@@ -56,7 +57,7 @@ public class Controller  implements Initializable {
            }
        }
         else {
-           actiontarget.setText("Не правильный пароль!");
+           actiontarget.setText("Не правильный логин или пароль!");
        }
 
 

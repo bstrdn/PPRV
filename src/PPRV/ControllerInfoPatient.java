@@ -154,7 +154,19 @@ public class ControllerInfoPatient {
         lvPatient.getItems().add("Группа крови и резус фактор: " + rs.getString("D1"));
         lvPatient.getItems().add("");
 
-
+        lvPatient.setCellFactory(lv -> new ListCell<String>() {
+            @Override
+            protected void updateItem (String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (item == null) {
+                    setText(null);
+                    setTextFill(null);
+                } else {
+                    setText(item);
+                    setTextFill(Color.RED);
+                }
+            }
+        });
        // lvPatient.getItems().add(lvAn);
        // lvPatient.getItems().add("dsfsdf");
     }
@@ -197,7 +209,7 @@ public class ControllerInfoPatient {
                         // Format date.
                         setText(item);
                         // Style all dates in March with a different color.
-                        if (item.equals("2")) {
+                        if (item.equals("175")) {
                             setTextFill(javafx.scene.paint.Color.CHOCOLATE);
                             setStyle("-fx-background-color: yellow");
                         } else {
