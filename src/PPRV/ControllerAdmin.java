@@ -18,17 +18,17 @@ import java.util.ArrayList;
 public class ControllerAdmin {
     @FXML private ObservableList<ObservableList> data;
     @FXML private ObservableList<BasePatient> data2;
-    @FXML
-    TableColumn<BasePatient, String> colId;
-    @FXML
-    TableColumn<BasePatient, String> colUserName;
-    @FXML
-    TableColumn<BasePatient, String> colAge;
-    @FXML
-    TableColumn<BasePatient, String> colLo;
+    @FXML private TextField tfLogin;
+    @FXML private TextField tfPass;
+    @FXML private TextField tfFIO;
+    @FXML TableColumn<BasePatient, String> colId;
+    @FXML TableColumn<BasePatient, String> colUserName;
+    @FXML TableColumn<BasePatient, String> colAge;
+    @FXML TableColumn<BasePatient, String> colLo;
     @FXML private ChoiceBox choiceBox;
     @FXML private TableView tvTEST;
-    public static int idPatient2;
+    private int idRol;
+    public static int UserID;
     public static Statement statmt;
 
 
@@ -40,7 +40,6 @@ public class ControllerAdmin {
     private void initialize() throws Exception {
 
         ConH2.Conn();
-
         colId.setCellValueFactory(
                 new PropertyValueFactory<BasePatient, String>("userId"));
         colUserName.setCellValueFactory(
@@ -57,13 +56,19 @@ public class ControllerAdmin {
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
         while (rs.next()) {
             oper.add(rs.getString("TITLE"));
-            System.out.println(rs.getString("TITLE"));
         }
         choiceBox.setItems(FXCollections.observableArrayList(
                 oper)
         );
-        choiceBox.getSelectionModel().select(2);
+        choiceBox.getSelectionModel().select(0);
 
+        //Достаем id Роли
+        choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                idRol =(Integer) number2;
+            }
+        });
 
         buildData1();
     }
@@ -94,6 +99,7 @@ public class ControllerAdmin {
             data2.add(cm);
         }
         tvTEST.setItems(data2);
+        tvTEST.getSelectionModel().select(0);
     }
 
 
@@ -110,27 +116,62 @@ public class ControllerAdmin {
         ConH2.Conn();
         statmt = ConH2.conn.createStatement();
         BasePatient selItem2 = (BasePatient) tvTEST.getSelectionModel().getSelectedItem();
-        idPatient2 = selItem2.userId.getValue();
+        UserID = selItem2.userId.getValue();
         switch (clickedButton.getId()) {
             case  "btnLoad":
         //        loadPatient();
                 break;
             case "btnDel":
-                delPatient();
+                delUser();
                 break;
             case "btnView":
-                //  System.out.println(idPatient2);
-                System.out.println(idPatient2);
+                System.out.println(UserID);
                 new Main.InfoPatient(selItem2.userName.getValue(), selItem2.userId.getValue());
-//                break;
+                break;
+            case "btnAdd":
+                addUser();
+                break;
         }
     }
 
 
-    private void delPatient() throws SQLException, ClassNotFoundException {
-        String sql = "DELETE FROM USERS WHERE ID = " + idPatient2;
-        statmt.executeUpdate(sql);
-        data2.clear();
-        buildData1();
+    private void delUser() throws Exception {
+        if (UserID == 1) {
+            new Main.info("Учетную запись администратора нельзя удалять.");
+        } else {
+            String sql = "DELETE FROM USERS WHERE ID = " + UserID;
+            statmt.executeUpdate(sql);
+            data2.clear();
+            buildData1();
+        }
     }
+
+   private void addUser() throws Exception {
+        boolean newUser = true;
+       ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from USERS");
+
+       if (tfLogin.getText().equals("") || tfPass.getText().equals("") || tfFIO.getText().equals("")) {
+           System.out.println("ПУСТО");
+           newUser = false;
+           new Main.info("Заполните все поля.");
+       }
+       else {
+           while (rs.next()) {
+               if (tfLogin.getText().equals(rs.getString("LOGIN"))) {
+                   newUser = false;
+                   new Main.info("Пользователь с таким логином уже создан.");
+               }
+           }
+       }
+
+
+           if (newUser) {
+               ConH2.Conn();
+               String sql = "INSERT INTO USERS VALUES (" + null + ", '" + tfLogin.getText() + "', '" + tfPass.getText() + "', '" + (idRol + 1) + "', '" + tfFIO.getText() + "')";
+               statmt.executeUpdate(sql);
+               data2.clear();
+               buildData1();
+           }
+    }
+
 }

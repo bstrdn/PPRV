@@ -138,7 +138,7 @@ public class ControllerInfoPatient {
 
         lvPatient.getItems().clear();
 
-        lvPatient.getItems().add(0,"Возраст: " + rs.getString("A1"));
+        lvPatient.getItems().add(0,"Возраст: " + rs.getString("A1") + " " +pprv.analyses[4]);
         lvPatient.getItems().add("");
         lvPatient.getItems().add(2, "Вес: " + rs.getString("A2"));
 

@@ -44,7 +44,6 @@ package PPRV;
 public class ControllerChief  {
 
     @FXML private TableView tvTEST;
-
     @FXML private Label label1;
     @FXML private TableView tableview;
     @FXML private ObservableList<ObservableList> data;
@@ -62,7 +61,6 @@ public class ControllerChief  {
 
 
     @FXML private ObservableList<BasePatient> data2;
-//    public static Connection conn;
     @FXML TableColumn<BasePatient, String> colId;
     @FXML TableColumn<BasePatient, String> colUserName;
     @FXML TableColumn<BasePatient, String> colAge;
@@ -72,21 +70,10 @@ public class ControllerChief  {
 
 
 
-
-
-
-
-
-
-
-
-
     File file;
 
     @FXML
     private void initialize() throws Exception {
-        //label1.setText("I'm a Label.");        //tableview = new TableView();//        choiceBox = new ChoiceBox(FXCollections.observableArrayList(
-////                "First", "Second", "Third")      );
         ConH2.Conn();
         colId.setCellValueFactory(new PropertyValueFactory<BasePatient, String>("userId"));
         colUserName.setCellValueFactory(new PropertyValueFactory<BasePatient, String>("userName"));
@@ -103,7 +90,7 @@ public class ControllerChief  {
             ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
            while (rs.next()) {
                 oper.add(rs.getString("OPERATION_NAME"));
-                System.out.println(rs.getString("OPERATION_NAME"));
+               // System.out.println(rs.getString("OPERATION_NAME"));
            }
         choiceBox.setItems(FXCollections.observableArrayList(
                 oper)
@@ -114,12 +101,11 @@ public class ControllerChief  {
         choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-                idOper =(Integer) number2 + 1;
+                idOper =(Integer) number2;
             }
         });
 
         //перестроение списка
-       // buildData();
         buildData1();
     }
 
@@ -235,11 +221,11 @@ catch (Exception e) {
         tf12.setText(csvFile);
 
     try (BufferedReader br = new BufferedReader(new FileReader(tf12.getText()))) {
-        //раньше считывал каждую строчку..
-   //     while ((line = br.readLine()) != null) {
+        //раньше считывал каждую строчку..  //     while ((line = br.readLine()) != null) {
             // use comma as separator
-            line = br.readLine();
+            line = br.readLine() + ",0";
             analyzes = line.split(cvsSplitBy);
+
             tfFIO.setText(analyzes[1]);
 
             }
@@ -255,6 +241,8 @@ catch (Exception e) {
     boolean analysisNew = true;
     if (analyzes != null) {
         analyzes[1] = tfFIO.getText();
+        int idoper = idOper + 1;
+        analyzes[11] = idoper + "";
 
 
     ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from PATIENT");
@@ -274,14 +262,18 @@ catch (Exception e) {
 
 
     if (patientNew) {
-        System.out.println("ID пациента: " + analyzes[0] + " , ФИО: " + analyzes[1]);
-        String sql = "INSERT INTO PATIENT VALUES ('" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[4] + "', '" + idOper + "', '" + analyzes[11] +"')";
+       // System.out.println("ID пациента: " + analyzes[0] + " , ФИО: " + analyzes[1]);
+        String sql = "INSERT INTO PATIENT VALUES ('" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[4] + "', '" + (idOper + 1) + "', '" + Controller.id +"')";
+
         statmt.executeUpdate(sql);
     }
     if (analysisNew) {
 //                            System.out.println("ID анализа: " + analyzes[2] + " , ID пациента: " + analyzes[0] + " А1: " + analyzes[4] + " B1: " + analyzes[5]);
-        String sql2 = "INSERT INTO ANALYSIS VALUES ('" + analyzes[2] +"', '" + analyzes[0] + "', '" + analyzes[3] + "', '" + analyzes[4] +"', '" + analyzes[5] + "', '" + analyzes[6] +"', '" + analyzes[7] +"', '" + analyzes[8] +"', '" + analyzes[9] +"', '" + analyzes[10] +"')";
+        String sql2 = "INSERT INTO ANALYSIS VALUES ('" + analyzes[2] +"', '" + analyzes[0] + "', '" + analyzes[3] + "', '" + analyzes[4] +"', '" + analyzes[5] + "', '" + analyzes[6] +"', '" +  analyzes[8] +"', '" + analyzes[9] +"', '" + analyzes[10] + "', '" + analyzes[11] + "', '" + (idOper + 1) +"', '" + analyzes[7] + "')";
         statmt.executeUpdate(sql2);
+
+        new pprv(analyzes);
+
 
     } else {
         new Main.info("Данные анализы уже загружены в систему.");
@@ -290,7 +282,7 @@ catch (Exception e) {
     buildData1();
 }
     else {
-            new Main.info("Не выбран файл!" + "АЙДИ " + Controller.id);
+            new Main.info("Не выбран файл!");
         }
     }
 

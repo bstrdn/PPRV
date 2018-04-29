@@ -15,8 +15,8 @@
    <Label fx:id="label1" style="-fx-font: NORMAL 20 Tahoma;" text="Пользователи" GridPane.rowIndex="8" />
    <Button fx:id="btnDel" mnemonicParsing="false" onAction="#onClick" text="Удалить" GridPane.columnIndex="2" GridPane.rowIndex="11" />
    <Button fx:id="btnView" mnemonicParsing="false" text="Смена пароля" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-   <TextField promptText="Введите имя пользователя" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-   <TextField fx:id="tf12" prefHeight="25.0" prefWidth="247.0" promptText="Введите логин пользователя" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+   <TextField fx:id="tfFIO" promptText="Введите имя пользователя" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+   <TextField fx:id="tfLogin" prefHeight="25.0" prefWidth="247.0" promptText="Введите логин пользователя" GridPane.columnSpan="2" GridPane.rowIndex="2" />
    <ChoiceBox fx:id="choiceBox" prefHeight="25.0" prefWidth="1111.0" GridPane.columnSpan="2" GridPane.rowIndex="4" />
    <Label text="Создание учетной записи" GridPane.columnSpan="3">
       <font>
@@ -25,7 +25,7 @@
    </Label>
    <Label text="ФИО" GridPane.columnIndex="2" GridPane.rowIndex="1" />
    <Label text="Права" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-   <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="902.0" text="Добавить" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+   <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onClick" prefHeight="25.0" prefWidth="902.0" text="Добавить" GridPane.columnIndex="1" GridPane.rowIndex="6" />
    <Label text="Логин" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    <TableView fx:id="tvTEST" prefHeight="113.0" prefWidth="319.0" GridPane.columnSpan="3" GridPane.rowIndex="9">
       <columns>
@@ -35,7 +35,7 @@
          <TableColumn fx:id="colLo" maxWidth="111.0" prefWidth="85.0" text="ПРАВА" />
       </columns>
    </TableView>
-   <TextField fx:id="tf121" layoutX="10.0" layoutY="80.0" prefHeight="25.0" prefWidth="247.0" promptText="Введите пароль пользователя" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+   <TextField fx:id="tfPass" layoutX="10.0" layoutY="80.0" prefHeight="25.0" prefWidth="247.0" promptText="Введите пароль пользователя" GridPane.columnSpan="2" GridPane.rowIndex="3" />
    <Label layoutX="316.0" layoutY="84.0" text="Пароль" GridPane.columnIndex="2" GridPane.rowIndex="3" />
    <columnConstraints>
       <ColumnConstraints maxWidth="343.0" minWidth="107.0" prefWidth="186.0" />
