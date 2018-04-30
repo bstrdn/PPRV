@@ -25,7 +25,7 @@ public class Main extends Application {
         //ЗАГРУЗИТЬ НАЗАД //РАБОЧИЙ ВАРИАНТ
                sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Login.fxml")), 400,300);
 
-      // sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
+     // sceneOne = new Scene(FXMLLoader.load(getClass().getResource("Chief.fxml")), 600,600);
      //TEST
        // sceneOne = new Scene(FXMLLoader.load(getClass().getResource("TESTchief.fxml")), 600,600);
 

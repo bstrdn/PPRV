@@ -22,7 +22,8 @@ public class Controller  implements Initializable {
     @FXML PasswordField PW1;
     String login;
     String password;
-    static int id;
+    //айди юзера в системе
+    static int id = 1;
 
     @FXML protected void handleSubmitButtonAction(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
        login = TF1.getText();

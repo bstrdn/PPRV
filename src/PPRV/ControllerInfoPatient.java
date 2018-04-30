@@ -34,6 +34,7 @@ public class ControllerInfoPatient {
     public static Statement statmt;
  //   public static int idAn;
     public static int idAn2;
+    public static int idSelected;
     //private String[] colName = {"№Иссл.", "№ПАЦ", "Дата иссл.","sdf","Рост","Вес","Кровь","sdf","sdf","sdf"};
     private ObservableList<String> lvAn = FXCollections.observableArrayList();
 
@@ -70,7 +71,7 @@ public class ControllerInfoPatient {
                // Object val = tablePosition.getTableColumn().getCellData(newValue);
               //  System.out.println("Selected Value" + val);
 
-                int idSelected = data2.get(((TablePosition) selectedCells.get(0)).getRow()).studyId.getValue();
+                idSelected = data2.get(((TablePosition) selectedCells.get(0)).getRow()).studyId.getValue();
 
                 try {
 
@@ -136,34 +137,40 @@ public class ControllerInfoPatient {
         rs.next();
         System.out.println(rs.getString("DATE"));
 
+
         lvPatient.getItems().clear();
-
         lvPatient.getItems().add(0,"Возраст: " + rs.getString("A1") + " " +pprv.analyses[4]);
-        lvPatient.getItems().add("");
         lvPatient.getItems().add(2, "Вес: " + rs.getString("A2"));
-
-        lvPatient.getItems().add("");
         lvPatient.getItems().add("Рост: " + rs.getString("A3"));
-        lvPatient.getItems().add("");
         lvPatient.getItems().add("Анализ крови на тромбоциты: " + rs.getString("B1"));
-        lvPatient.getItems().add("");
         lvPatient.getItems().add("Время свертываеости крови: " + rs.getString("C1"));
-        lvPatient.getItems().add("");
         lvPatient.getItems().add("Длительность кровотечения: " + rs.getString("C2"));
-        lvPatient.getItems().add("");
         lvPatient.getItems().add("Группа крови и резус фактор: " + rs.getString("D1"));
-        lvPatient.getItems().add("");
 
         lvPatient.setCellFactory(lv -> new ListCell<String>() {
             @Override
             protected void updateItem (String item, boolean empty) {
                 super.updateItem(item, empty);
-                if (item == null) {
-                    setText(null);
-                    setTextFill(null);
-                } else {
-                    setText(item);
-                    setTextFill(Color.RED);
+                System.out.println(item);
+                try {
+                    if (item.contains("Замечаний нет.")) {
+                        setText(item);
+                    }
+                    else if (item.contains("Нельзя")) {
+                        setText(item);
+                        setStyle("-fx-background-color: red");
+
+                    }
+                    else if (item.contains("на усмотрение")) {
+                        setText(item);
+                        setStyle("-fx-background-color: yellow");
+                    }
+                    else if (true)
+                        setText(item);
+
+                }
+                catch (Exception a) {
+                    System.out.println(a);
                 }
             }
         });
