@@ -137,6 +137,9 @@ public class ControllerInfoPatient {
         rs.next();
         System.out.println(rs.getString("DATE"));
 
+        String SQL2 = "SELECT * FROM COMMENT WHERE ID =" + a;
+
+
 
         lvPatient.getItems().clear();
         lvPatient.getItems().add(0,"Возраст: " + rs.getString("A1") + " " +pprv.analyses[4]);
