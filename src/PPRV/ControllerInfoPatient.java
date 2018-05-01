@@ -147,6 +147,9 @@ public class ControllerInfoPatient {
         lvPatient.getItems().add(2, rs2.getString("A3"));
         lvPatient.getItems().add(3, rs2.getString("A4"));
         lvPatient.getItems().add(4, rs2.getString("B1"));
+        lvPatient.getItems().add(5, rs2.getString("С1"));
+        lvPatient.getItems().add(6, rs2.getString("C2"));
+        lvPatient.getItems().add(7, rs2.getString("D1"));
 
 
 

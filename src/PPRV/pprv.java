@@ -52,13 +52,27 @@ public class pprv {
               else analyses[8] += "Замечаний нет.";
           }
 
+            //С1 – время свертываемости. по методу Дуке  60-180
+          analyses[9] = "Время свертываемости: " + analyzes[9] + ". ";
+          if (Integer.parseInt(analyzes[9]) < 60 || Integer.parseInt(analyzes[9]) > 180)
+              analyses[9] += "Операцию проводить запрещено, показатель откловен от нормы.";
+          else analyses[9] += "Замечаний нет.";
+
+          //С2 – время свертываемости. по методу Дуке  60-180
+          analyses[10] = "Время свертываемости: " + analyzes[10] + ". ";
+          if (Integer.parseInt(analyzes[10]) < 60 || Integer.parseInt(analyzes[10]) > 180)
+              analyses[10] += "Операцию проводить запрещено, показатель откловен от нормы.";
+          else analyses[10] += "Замечаний нет.";
+
+          //D1 – Определение группы крови и резус фактора
+          analyses[11] = "Группа крови: " + analyzes[11] + "Замечаний нет. ";
 
 
           System.out.println(analyses[4] + analyses[5]);
 
       }
 
-        String SQL = "INSERT INTO COMMENT VALUES (" + analyzes[2] + ", '" + analyses[4] + "', '" + analyses[5] + "', '" + analyses[6] +"', '" + analyses[7] +"', '" + analyses[8] +"')";
+        String SQL = "INSERT INTO COMMENT VALUES (" + analyzes[2] + ", '" + analyses[4] + "', '" + analyses[5] + "', '" + analyses[6] +"', '" + analyses[7] +"', '" + analyses[8] +"', '" + analyses[9] +"', '" + analyses[10] +"', '" + analyses[11] +"')";
         ConH2.conn.createStatement().executeUpdate(SQL);
     }
 }
