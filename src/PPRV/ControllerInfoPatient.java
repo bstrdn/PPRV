@@ -133,22 +133,30 @@ public class ControllerInfoPatient {
         System.out.println(a);
         ConH2.Conn();
         String SQL = "SELECT * FROM ANALYSIS WHERE ID =" + a;
+        System.out.println(a);
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
         rs.next();
         System.out.println(rs.getString("DATE"));
-
-        String SQL2 = "SELECT * FROM COMMENT WHERE ID =" + a;
-
-
-
         lvPatient.getItems().clear();
-        lvPatient.getItems().add(0,"Возраст: " + rs.getString("A1") + " " +pprv.analyses[4]);
-        lvPatient.getItems().add(2, "Вес: " + rs.getString("A2"));
-        lvPatient.getItems().add("Рост: " + rs.getString("A3"));
-        lvPatient.getItems().add("Анализ крови на тромбоциты: " + rs.getString("B1"));
-        lvPatient.getItems().add("Время свертываеости крови: " + rs.getString("C1"));
-        lvPatient.getItems().add("Длительность кровотечения: " + rs.getString("C2"));
-        lvPatient.getItems().add("Группа крови и резус фактор: " + rs.getString("D1"));
+        String SQL2 = "SELECT * FROM COMMENT WHERE ID =" + a;
+        ResultSet rs2 = ConH2.conn.createStatement().executeQuery(SQL2);
+        rs2.next();
+
+        lvPatient.getItems().add(0, rs2.getString("A1"));
+        lvPatient.getItems().add(1, rs2.getString("A2"));
+        lvPatient.getItems().add(2, rs2.getString("A3"));
+        lvPatient.getItems().add(3, rs2.getString("A4"));
+        lvPatient.getItems().add(4, rs2.getString("B1"));
+
+
+
+      //  lvPatient.getItems().add(0,"Возраст: " + rs.getString("A1") + " " +pprv.analyses[4]);
+       // lvPatient.getItems().add(2, "Вес: " + rs.getString("A2"));
+//        lvPatient.getItems().add("Рост: " + rs.getString("A3"));
+//        lvPatient.getItems().add("Анализ крови на тромбоциты: " + rs.getString("B1"));
+//        lvPatient.getItems().add("Время свертываеости крови: " + rs.getString("C1"));
+//        lvPatient.getItems().add("Длительность кровотечения: " + rs.getString("C2"));
+//        lvPatient.getItems().add("Группа крови и резус фактор: " + rs.getString("D1"));
 
         lvPatient.setCellFactory(lv -> new ListCell<String>() {
             @Override
@@ -159,10 +167,9 @@ public class ControllerInfoPatient {
                     if (item.contains("Замечаний нет.")) {
                         setText(item);
                     }
-                    else if (item.contains("Нельзя")) {
+                    else if (item.contains("Нельзя") || item.contains("женщинам" ) || item.contains("запрещено" )) {
                         setText(item);
                         setStyle("-fx-background-color: red");
-
                     }
                     else if (item.contains("на усмотрение")) {
                         setText(item);
