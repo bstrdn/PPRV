@@ -25,11 +25,9 @@ package PPRV;
         import java.io.File;
         import java.io.FileReader;
         import java.io.IOException;
-        import java.sql.Connection;
-        import java.sql.ResultSet;
-        import java.sql.SQLException;
-        import java.sql.Statement;
+        import java.sql.*;
         import java.util.ArrayList;
+        import java.util.Arrays;
 
         import static java.awt.geom.Arc2D.OPEN;
         import static java.lang.Integer.parseInt;
@@ -107,25 +105,30 @@ public class ControllerChief  {
 
         //перестроение списка
         buildData1();
+
+       // test(2,1);
+      //  test2(2);
+
+
     }
 
-    public void buildData1() throws SQLException, ClassNotFoundException {
+    public void buildData1() throws SQLException {
         data2 = FXCollections.observableArrayList();
         String SQL = "SELECT * FROM PATIENT";
         String SQL2 = "SELECT\n" +
-                "  IDPATIENT, PATIENT.NAME, AGE, OPERATIONS.OPERATION_NAME, FIO\n" +
-                "FROM PATIENT, OPERATIONS, USERS\n" +
-                "WHERE PATIENT.LASTOPERATION=OPERATIONS.ID AND PATIENT.IDDOCTOR=USERS.ID\n" +
-                "ORDER BY IDPATIENT";
+                "  ID_PATIENT, PPRV_PATIENT.FIO, AGE, SEX, OPERATION_NAME, USERS.FIO\n" +
+                "FROM PPRV_PATIENT, OPERATIONS, USERS\n" +
+                "WHERE PPRV_PATIENT.LAST_OPERATION=OPERATIONS.ID AND PPRV_PATIENT.ID_DOCTOR=USERS.ID\n" +
+                "ORDER BY ID_PATIENT";
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL2);
 
         while (rs.next()) {
             BasePatient cm = new BasePatient();
-            cm.userId.set(rs.getInt("IDPATIENT"));
-            cm.userName.set(rs.getString("NAME"));
+            cm.userId.set(rs.getInt("ID_PATIENT"));
+            cm.userName.set(rs.getString("PPRV_PATIENT.FIO"));
             cm.userAge.set(rs.getString("AGE"));
             cm.userLO.set(rs.getString("OPERATION_NAME"));
-            cm.userAdd.set(rs.getString("FIO"));
+            cm.userAdd.set(rs.getString("USERS.FIO"));
             data2.add(cm);
         }
 
@@ -188,7 +191,7 @@ catch (Exception e) {
                 delPatient();
                 break;
             case "btnLoad2":
-                loadPatient2();
+                loadPatient3();
                 break;
             case "btnView":
                 System.out.println(idPatient2);
@@ -199,7 +202,7 @@ catch (Exception e) {
 
     //удаление пациента
     private void delPatient() throws SQLException, ClassNotFoundException {
-        String sql = "DELETE FROM PATIENT WHERE IDPATIENT = " + idPatient2;
+        String sql = "DELETE FROM PPRV_PATIENT WHERE ID_PATIENT = " + idPatient2;
         statmt.executeUpdate(sql);
         data2.clear();
         buildData1();
@@ -223,8 +226,13 @@ catch (Exception e) {
     try (BufferedReader br = new BufferedReader(new FileReader(tf12.getText()))) {
         //раньше считывал каждую строчку..  //     while ((line = br.readLine()) != null) {
             // use comma as separator
-            line = br.readLine() + ",0";
+            line = br.readLine(); // + ",0";
             analyzes = line.split(cvsSplitBy);
+
+        System.out.println(analyzes[3]);
+        System.out.println(analyzes[4]);
+        System.out.println(analyzes[5]);
+        System.out.println(analyzes[6]);
 
             tfFIO.setText(analyzes[1]);
 
@@ -287,4 +295,137 @@ catch (Exception e) {
     }
 
 
-}
+
+
+
+
+    private void loadPatient3() throws Exception {
+        boolean patientNew = true;
+        boolean analysisNew = true;
+        if (analyzes != null) {
+            analyzes[1] = tfFIO.getText();
+            int idoper = idOper + 1;
+            //analyzes[6] = idoper + "";
+
+
+            ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from PPRV_PATIENT");
+            while (rs.next()) {
+                if (analyzes[0].equals(rs.getString(1))) {
+                    patientNew = false;
+                    System.out.println("СУЩЕСТВУЕТ ПАЦИЕНТ");
+                    break;
+                }}
+
+            ResultSet rs2 = ConH2.conn.createStatement().executeQuery("SELECT * from PPRV_ANALISIS");
+            while (rs2.next()) {
+                if (analyzes[3].equals(rs2.getString(1))) {
+                    analysisNew = false;
+                    System.out.println("СУЩЕСТВУЕТ АНАЛИЗ");
+                    break;
+                }}
+
+
+            if (patientNew) {
+                // System.out.println("ID пациента: " + analyzes[0] + " , ФИО: " + analyzes[1]);
+                String sql = "INSERT INTO PPRV_PATIENT VALUES ('" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[4] + "', '" + analyzes[2] +"', '" + (idOper + 2) + "', '" + Controller.id +"')";
+                statmt.executeUpdate(sql);
+            }
+            if (analysisNew) {
+//                            System.out.println("ID анализа: " + analyzes[2] + " , ID пациента: " + analyzes[0] + " А1: " + analyzes[4] + " B1: " + analyzes[5]);
+                String sql2 = "INSERT INTO PPRV_ANALISIS VALUES ('" + analyzes[3] +"', '" + analyzes[4] + "', '" + analyzes[5] + "', '" + analyzes[6]  + "')";
+                statmt.executeUpdate(sql2);
+
+                //ОБРАБОТКА АНАЛИЗОВ
+             //   new pprv(analyzes);
+                test(Integer.parseInt(analyzes[3]), Integer.parseInt(analyzes[2]));
+
+
+            } else {
+                new Main.info("Данные анализы уже загружены в систему.");
+            }
+            data2.clear();
+            buildData1();
+        }
+        else {
+            new Main.info("Не выбран файл!");
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //TEST
+   void test (int id_study, int sex) throws SQLException, ClassNotFoundException {
+       ConH2.Conn();
+       Statement statement = ConH2.conn.createStatement();
+       String sqlq = "INSERT INTO PPRV_ANALISIS_RESULT (ID_STUDY) VALUES (" + id_study + ")";
+       statement.executeUpdate(sqlq);
+       boolean r;
+       String SQL_A = "SELECT * from PPRV_ANALISIS WHERE ID_STUDY =" + id_study;
+       String SQL_N = "SELECT * from PPRV_ANALISIS_NORM";
+       ResultSet rs_a = ConH2.conn.createStatement().executeQuery(SQL_A);
+       ResultSet rs_n = ConH2.conn.createStatement().executeQuery(SQL_N);
+       rs_n.next();
+       rs_a.next();
+
+           for (int i = 1; i <= rs_n.getMetaData().getColumnCount(); i++) {
+
+               int study = rs_a.getInt(i+1);
+
+               String columnName = rs_n.getMetaData().getColumnName(i);
+               int[] arr = Arrays.stream(rs_n.getString(i).substring(0, rs_n.getString(i).length()).split(","))
+                       .map(String::trim).mapToInt(Integer::parseInt).toArray();
+               System.out.println("значение " + study);
+               System.out.println("меньше " + arr[1] + " и больше " + arr[0]);
+               if (sex == 0) {
+                  r = study < arr[1] && study > arr[0] ? true : false;
+               }
+                else {
+                  r = study < arr[2] && study > arr[3] ? true : false;
+               }
+               System.out.println("результат " + r);
+
+               String sql2 = "UPDATE PPRV_ANALISIS_RESULT SET " + columnName +" = " + r + " WHERE ID_STUDY = " + id_study;
+               statement.executeUpdate(sql2);
+               }
+       }
+
+
+
+
+
+
+
+
+
+
+       void test2 (int id_study) throws SQLException {
+           ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from PPRV_ANALISIS_RESULT WHERE ID_STUDY =" + id_study);
+           rs.next();
+
+
+
+
+           for (int i = 2; i <= rs.getMetaData().getColumnCount(); i++) {
+               System.out.println(rs.getMetaData().getColumnName(i));
+               System.out.println(rs.getBoolean(i));
+
+           }
+       }
+   }    // endTEST
+
+
