@@ -73,6 +73,7 @@ public class ControllerInfoPatient {
 
                 idSelected = data2.get(((TablePosition) selectedCells.get(0)).getRow()).studyId.getValue();
 
+             //   System.out.println(idSelected);
                 try {
 
                     buildLV(idSelected);
@@ -132,24 +133,37 @@ public class ControllerInfoPatient {
     public void buildLV(int a) throws SQLException, ClassNotFoundException {
         System.out.println(a);
         ConH2.Conn();
-        String SQL = "SELECT * FROM ANALYSIS WHERE ID =" + a;
+        String SQL = "SELECT * FROM PPRV_ANALISIS WHERE ID_STUDY =" + a;
+        String SQL3 = "SELECT * FROM PPRV_ANALISIS_RESULT WHERE ID_STUDY =" + a;
         System.out.println(a);
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
+        ResultSet rs3 = ConH2.conn.createStatement().executeQuery(SQL3);
         rs.next();
-        System.out.println(rs.getString("DATE"));
+//        System.out.println(rs.getString("DATE"));
         lvPatient.getItems().clear();
         String SQL2 = "SELECT * FROM COMMENT WHERE ID =" + a;
         ResultSet rs2 = ConH2.conn.createStatement().executeQuery(SQL2);
         rs2.next();
+        rs3.next();
 
-        lvPatient.getItems().add(0, rs2.getString("A1"));
-        lvPatient.getItems().add(1, rs2.getString("A2"));
-        lvPatient.getItems().add(2, rs2.getString("A3"));
-        lvPatient.getItems().add(3, rs2.getString("A4"));
-        lvPatient.getItems().add(4, rs2.getString("B1"));
-        lvPatient.getItems().add(5, rs2.getString("С1"));
-        lvPatient.getItems().add(6, rs2.getString("C2"));
-        lvPatient.getItems().add(7, rs2.getString("D1"));
+        for (int i = 2; i <= rs3.getMetaData().getColumnCount(); i++ ) {
+         rs3.getString(i);
+
+            System.out.println("НАЗВАНИЕ СТОЛБЦОВ " + rs3.getMetaData().getColumnName(i));
+            System.out.println("НАЗВАНИЕ СТОЛБЦОВ " + rs.getInt(i+2));
+            System.out.println("НАЗВАНИЕ ________ " + rs3.getString(i));
+        }
+
+
+
+//        lvPatient.getItems().add(0, rs2.getString("A1"));
+//        lvPatient.getItems().add(1, rs2.getString("A2"));
+//        lvPatient.getItems().add(2, rs2.getString("A3"));
+//        lvPatient.getItems().add(3, rs2.getString("A4"));
+//        lvPatient.getItems().add(4, rs2.getString("B1"));
+//        lvPatient.getItems().add(5, rs2.getString("С1"));
+//        lvPatient.getItems().add(6, rs2.getString("C2"));
+//        lvPatient.getItems().add(7, rs2.getString("D1"));
 
 
 
@@ -195,24 +209,24 @@ public class ControllerInfoPatient {
 
     public void buildData1() throws SQLException, ClassNotFoundException {
         data2 = FXCollections.observableArrayList();
-        String SQL = "SELECT * FROM ANALYSIS WHERE ID =" + Main.idPatient;
-        String SQL2 = "SELECT ID,NAME,DATE,A1,A2,A3,B1,C1,C2,D1\n" +
-                "FROM ANALYSIS,PATIENT\n" +
-                "WHERE ANALYSIS.IDPATIENT = PATIENT.IDPATIENT AND PATIENT.IDPATIENT =" + Main.idPatient;
+      //  String SQL = "SELECT * FROM ANALYSIS WHERE ID =" + Main.idPatient;
+        String SQL2 = "SELECT ID_STUDY,FIO, DATE_ANALISIS,A1,A2,A3\n" +
+                "FROM PPRV_ANALISIS,PPRV_PATIENT\n" +
+                "WHERE PPRV_ANALISIS.ID_PATIENT = PPRV_PATIENT.ID_PATIENT AND PPRV_PATIENT.ID_PATIENT =" + Main.idPatient;
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL2);
 
         while (rs.next()) {
             Study cm = new Study();
-            cm.studyId.set(rs.getInt("ID"));
-            cm.studyIdName.set(rs.getString("NAME"));
-            cm.studyDate.set(rs.getString("DATE"));
+            cm.studyId.set(rs.getInt("ID_STUDY"));
+            cm.studyIdName.set(rs.getString("FIO"));
+            cm.studyDate.set(rs.getString("DATE_ANALISIS"));
             cm.studyA1.set(rs.getString("A1"));
             cm.studyA2.set(rs.getString("A2"));
             cm.studyA3.set(rs.getString("A3"));
-            cm.studyB1.set(rs.getString("B1"));
-            cm.studyC1.set(rs.getString("C1"));
-            cm.studyC2.set(rs.getString("C2"));
-            cm.studyD1.set(rs.getString("D1"));
+//            cm.studyB1.set(rs.getString("B1"));
+//            cm.studyC1.set(rs.getString("C1"));
+//            cm.studyC2.set(rs.getString("C2"));
+//            cm.studyD1.set(rs.getString("D1"));
             data2.add(cm);
         }
 

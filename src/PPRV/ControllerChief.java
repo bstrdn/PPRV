@@ -327,13 +327,21 @@ catch (Exception e) {
 
             if (patientNew) {
                 // System.out.println("ID пациента: " + analyzes[0] + " , ФИО: " + analyzes[1]);
-                String sql = "INSERT INTO PPRV_PATIENT VALUES ('" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[4] + "', '" + analyzes[2] +"', '" + (idOper + 2) + "', '" + Controller.id +"')";
+                String sql = "INSERT INTO PPRV_PATIENT VALUES ('" + analyzes[0] + "', '" + analyzes[1] + "', '" + analyzes[5] + "', '" + analyzes[2] +"', '" + (idOper + 1) + "', '" + Controller.id +"')";
                 statmt.executeUpdate(sql);
             }
             if (analysisNew) {
 //                            System.out.println("ID анализа: " + analyzes[2] + " , ID пациента: " + analyzes[0] + " А1: " + analyzes[4] + " B1: " + analyzes[5]);
-                String sql2 = "INSERT INTO PPRV_ANALISIS VALUES ('" + analyzes[3] +"', '" + analyzes[4] + "', '" + analyzes[5] + "', '" + analyzes[6]  + "')";
-                statmt.executeUpdate(sql2);
+               // String sql2 = "INSERT INTO PPRV_ANALISIS VALUES ('" + analyzes[3] +"', '" + analyzes[4] + "', '" + analyzes[5] + "', '" + analyzes[6]  + "')";
+                //statmt.executeUpdate(sql2);
+
+                String a = "";
+                for (int i = 6; i <= analyzes.length; i++) {
+                    a += ",'" + analyzes[i-1] + "'";
+                }
+               // System.out.println("INSERT INTO PPRV_ANALISIS VALUES ('" + analyzes[3]  + "'" + a +")");
+               // System.out.println(a);
+                statmt.executeUpdate("INSERT INTO PPRV_ANALISIS VALUES ('" + analyzes[3]  + "','" + analyzes[0] + "','" + analyzes[4] + "'"+ a +")");
 
                 //ОБРАБОТКА АНАЛИЗОВ
              //   new pprv(analyzes);
@@ -382,12 +390,17 @@ catch (Exception e) {
        rs_n.next();
        rs_a.next();
 
-           for (int i = 1; i <= rs_n.getMetaData().getColumnCount(); i++) {
+       System.out.println("КОРОЧЕ " + rs_a.getInt(4));
+       System.out.println("КОРОЧЕ " + rs_a.getInt(5));
+       System.out.println("КОРОЧЕ " + rs_a.getInt(6));
 
-               int study = rs_a.getInt(i+1);
 
-               String columnName = rs_n.getMetaData().getColumnName(i);
-               int[] arr = Arrays.stream(rs_n.getString(i).substring(0, rs_n.getString(i).length()).split(","))
+           for (int i = 4; i <= rs_a.getMetaData().getColumnCount(); i++) {
+
+               int study = rs_a.getInt(i);
+
+               String columnName = rs_n.getMetaData().getColumnName(i-3);
+               int[] arr = Arrays.stream(rs_n.getString(i-3).substring(0, rs_n.getString(i-3).length()).split(","))
                        .map(String::trim).mapToInt(Integer::parseInt).toArray();
                System.out.println("значение " + study);
                System.out.println("меньше " + arr[1] + " и больше " + arr[0]);
