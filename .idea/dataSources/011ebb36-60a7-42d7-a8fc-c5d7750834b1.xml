@@ -15,76 +15,77 @@
     <table id="6" parent="4" name="COMMENT"/>
     <table id="7" parent="4" name="OLD2PPRV_ANALISIS"/>
     <table id="8" parent="4" name="OLDPPRV_ANALISIS"/>
-    <table id="9" parent="4" name="OPERATIONS"/>
-    <table id="10" parent="4" name="OPERATIONS_COPY_7_0"/>
-    <table id="11" parent="4" name="PATIENT"/>
-    <table id="12" parent="4" name="PPRV_ANALISIS"/>
-    <table id="13" parent="4" name="PPRV_ANALISIS_NAME"/>
-    <table id="14" parent="4" name="PPRV_ANALISIS_NORM"/>
-    <table id="15" parent="4" name="PPRV_ANALISIS_RESULT"/>
-    <table id="16" parent="4" name="PPRV_PATIENT"/>
-    <table id="17" parent="4" name="REGISTRATION"/>
-    <table id="18" parent="4" name="RESULT"/>
-    <table id="19" parent="4" name="ROLE"/>
-    <table id="20" parent="4" name="USERS"/>
-    <table id="21" parent="4" name="USERS_COPY_3_0"/>
-    <table id="22" parent="4" name="USERS_COPY_3_1"/>
-    <table id="23" parent="4" name="USERS_COPY_4_0"/>
-    <column id="24" parent="5" name="ID">
+    <table id="9" parent="4" name="OLDPPRV_ANALISIS_RESULT"/>
+    <table id="10" parent="4" name="OPERATIONS"/>
+    <table id="11" parent="4" name="OPERATIONS_COPY_7_0"/>
+    <table id="12" parent="4" name="PATIENT"/>
+    <table id="13" parent="4" name="PPRV_ANALISIS"/>
+    <table id="14" parent="4" name="PPRV_ANALISIS_NAME"/>
+    <table id="15" parent="4" name="PPRV_ANALISIS_NORM"/>
+    <table id="16" parent="4" name="PPRV_ANALISIS_RESULT"/>
+    <table id="17" parent="4" name="PPRV_PATIENT"/>
+    <table id="18" parent="4" name="REGISTRATION"/>
+    <table id="19" parent="4" name="RESULT"/>
+    <table id="20" parent="4" name="ROLE"/>
+    <table id="21" parent="4" name="USERS"/>
+    <table id="22" parent="4" name="USERS_COPY_3_0"/>
+    <table id="23" parent="4" name="USERS_COPY_3_1"/>
+    <table id="24" parent="4" name="USERS_COPY_4_0"/>
+    <column id="25" parent="5" name="ID">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="25" parent="5" name="IDPATIENT">
+    <column id="26" parent="5" name="IDPATIENT">
       <Position>2</Position>
       <DataType>VARCHAR(50)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="26" parent="5" name="DATE">
+    <column id="27" parent="5" name="DATE">
       <Position>3</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="27" parent="5" name="A1">
+    <column id="28" parent="5" name="A1">
       <Position>4</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="28" parent="5" name="A2">
+    <column id="29" parent="5" name="A2">
       <Position>5</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="29" parent="5" name="A3">
+    <column id="30" parent="5" name="A3">
       <Position>6</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="30" parent="5" name="B1">
+    <column id="31" parent="5" name="B1">
       <Position>7</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="31" parent="5" name="C1">
+    <column id="32" parent="5" name="C1">
       <Position>8</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="32" parent="5" name="C2">
+    <column id="33" parent="5" name="C2">
       <Position>9</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="33" parent="5" name="D1">
+    <column id="34" parent="5" name="D1">
       <Position>10</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="34" parent="5" name="IDOPERATION">
+    <column id="35" parent="5" name="IDOPERATION">
       <Position>11</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="35" parent="5" name="A4">
+    <column id="36" parent="5" name="A4">
       <Position>12</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <key id="36" parent="5" name="ANALYSIS_ID_PK">
+    <key id="37" parent="5" name="ANALYSIS_ID_PK">
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="37" parent="5" name="ANALYSIS_PATIENT_IDPATIENT_FK">
+    <foreign-key id="38" parent="5" name="ANALYSIS_PATIENT_IDPATIENT_FK">
       <ColNames>IDPATIENT</ColNames>
       <RefSchemaName>PUBLIC</RefSchemaName>
       <RefTableName>PATIENT</RefTableName>
@@ -93,43 +94,43 @@
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="38" parent="6" name="ID">
+    <column id="39" parent="6" name="ID">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="39" parent="6" name="A1">
+    <column id="40" parent="6" name="A1">
       <Position>2</Position>
       <DataType>VARCHAR(200)|12</DataType>
     </column>
-    <column id="40" parent="6" name="A2">
+    <column id="41" parent="6" name="A2">
       <Position>3</Position>
       <DataType>VARCHAR(200)|12</DataType>
     </column>
-    <column id="41" parent="6" name="A3">
+    <column id="42" parent="6" name="A3">
       <Position>4</Position>
       <DataType>VARCHAR(200)|12</DataType>
     </column>
-    <column id="42" parent="6" name="A4">
+    <column id="43" parent="6" name="A4">
       <Position>5</Position>
       <DataType>VARCHAR(200)|12</DataType>
     </column>
-    <column id="43" parent="6" name="B1">
+    <column id="44" parent="6" name="B1">
       <Position>6</Position>
       <DataType>VARCHAR(200)|12</DataType>
     </column>
-    <column id="44" parent="6" name="С1">
+    <column id="45" parent="6" name="С1">
       <Position>7</Position>
       <DataType>VARCHAR(200)|12</DataType>
     </column>
-    <column id="45" parent="6" name="C2">
+    <column id="46" parent="6" name="C2">
       <Position>8</Position>
       <DataType>VARCHAR(200)|12</DataType>
     </column>
-    <column id="46" parent="6" name="D1">
+    <column id="47" parent="6" name="D1">
       <Position>9</Position>
       <DataType>VARCHAR(200)|12</DataType>
     </column>
-    <foreign-key id="47" parent="6" name="COMMENT_ANALYSIS_ID_FK">
+    <foreign-key id="48" parent="6" name="COMMENT_ANALYSIS_ID_FK">
       <ColNames>ID</ColNames>
       <RefSchemaName>PUBLIC</RefSchemaName>
       <RefTableName>ANALYSIS</RefTableName>
@@ -138,130 +139,146 @@
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="48" parent="7" name="ID_STUDY">
+    <column id="49" parent="7" name="ID_STUDY">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="49" parent="7" name="ID_PATIENT">
+    <column id="50" parent="7" name="ID_PATIENT">
       <Position>2</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="50" parent="7" name="A1">
+    <column id="51" parent="7" name="A1">
       <Position>3</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="51" parent="7" name="A2">
+    <column id="52" parent="7" name="A2">
       <Position>4</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="52" parent="7" name="A3">
+    <column id="53" parent="7" name="A3">
       <Position>5</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="53" parent="8" name="ID_STUDY">
+    <column id="54" parent="8" name="ID_STUDY">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="54" parent="8" name="A1">
+    <column id="55" parent="8" name="A1">
       <Position>2</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="55" parent="8" name="A2">
+    <column id="56" parent="8" name="A2">
       <Position>3</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="56" parent="8" name="A3">
+    <column id="57" parent="8" name="A3">
       <Position>4</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="57" parent="9" name="ID">
+    <column id="58" parent="9" name="ID_STUDY">
+      <Position>1</Position>
+      <DataType>INTEGER(10)|4</DataType>
+    </column>
+    <column id="59" parent="9" name="A1">
+      <Position>2</Position>
+      <DataType>BOOLEAN|16</DataType>
+    </column>
+    <column id="60" parent="9" name="A2">
+      <Position>3</Position>
+      <DataType>BOOLEAN|16</DataType>
+    </column>
+    <column id="61" parent="9" name="A3">
+      <Position>4</Position>
+      <DataType>BOOLEAN|16</DataType>
+    </column>
+    <column id="62" parent="10" name="ID">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_4E368A25_6C1D_4895_AF01_AC5236749C6F)</DefaultExpression>
     </column>
-    <column id="58" parent="9" name="OPERATION_NAME">
+    <column id="63" parent="10" name="OPERATION_NAME">
       <Position>2</Position>
       <DataType>VARCHAR(50)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="59" parent="9" name="CONSTRAINT_1">
+    <key id="64" parent="10" name="CONSTRAINT_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="60" parent="10" name="ID">
+    <column id="65" parent="11" name="ID">
       <Position>1</Position>
       <DataType>BIGINT(19)|-5</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
       <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5EA025E6_9B3A_4F1D_88CB_33A81849E360)</DefaultExpression>
     </column>
-    <column id="61" parent="10" name="OPERATION_NAME">
+    <column id="66" parent="11" name="OPERATION_NAME">
       <Position>2</Position>
       <DataType>VARCHAR(50)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="62" parent="10" name="CONSTRAINT_D">
+    <key id="67" parent="11" name="CONSTRAINT_D">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="63" parent="11" name="IDPATIENT">
+    <column id="68" parent="12" name="IDPATIENT">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="64" parent="11" name="NAME">
+    <column id="69" parent="12" name="NAME">
       <Position>2</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="65" parent="11" name="AGE">
+    <column id="70" parent="12" name="AGE">
       <Position>3</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="66" parent="11" name="LASTOPERATION">
+    <column id="71" parent="12" name="LASTOPERATION">
       <Position>4</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="67" parent="11" name="IDDOCTOR">
+    <column id="72" parent="12" name="IDDOCTOR">
       <Position>5</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <key id="68" parent="11" name="PATIENT_IDPATIENT_PK">
+    <key id="73" parent="12" name="PATIENT_IDPATIENT_PK">
       <ColNames>IDPATIENT</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="69" parent="12" name="ID_STUDY">
+    <column id="74" parent="13" name="ID_STUDY">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="70" parent="12" name="ID_PATIENT">
+    <column id="75" parent="13" name="ID_PATIENT">
       <Position>2</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="71" parent="12" name="DATE_ANALISIS">
+    <column id="76" parent="13" name="DATE_ANALISIS">
       <Position>3</Position>
       <DataType>VARCHAR(10)|12</DataType>
     </column>
-    <column id="72" parent="12" name="A1">
+    <column id="77" parent="13" name="A1">
       <Position>4</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="73" parent="12" name="A2">
+    <column id="78" parent="13" name="A2">
       <Position>5</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="74" parent="12" name="A3">
+    <column id="79" parent="13" name="A3">
       <Position>6</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <index id="75" parent="12" name="PPRV_ANALISIS_RESULT_PPRV_ANALISIS_ID_STUDY_FK_INDEX_A">
+    <index id="80" parent="13" name="PPRV_ANALISIS_RESULT_PPRV_ANALISIS_ID_STUDY_FK_INDEX_A">
       <ColNames>ID_STUDY</ColNames>
       <Unique>1</Unique>
     </index>
-    <foreign-key id="76" parent="12" name="PPRV_ANALISIS_PPRV_PATIENT_ID_PATIENT_FK">
+    <foreign-key id="81" parent="13" name="PPRV_ANALISIS_PPRV_PATIENT_ID_PATIENT_FK">
       <ColNames>ID_PATIENT</ColNames>
       <RefSchemaName>PUBLIC</RefSchemaName>
       <RefTableName>PPRV_PATIENT</RefTableName>
@@ -269,47 +286,51 @@
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="77" parent="13" name="A1">
+    <column id="82" parent="14" name="A1">
       <Position>1</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="78" parent="13" name="A2">
+    <column id="83" parent="14" name="A2">
       <Position>2</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="79" parent="13" name="A3">
+    <column id="84" parent="14" name="A3">
       <Position>3</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <column id="80" parent="14" name="A1">
+    <column id="85" parent="15" name="A1">
       <Position>1</Position>
       <DataType>VARCHAR(25)|12</DataType>
     </column>
-    <column id="81" parent="14" name="A2">
+    <column id="86" parent="15" name="A2">
       <Position>2</Position>
       <DataType>VARCHAR(25)|12</DataType>
     </column>
-    <column id="82" parent="14" name="A3">
+    <column id="87" parent="15" name="A3">
       <Position>3</Position>
       <DataType>VARCHAR(25)|12</DataType>
     </column>
-    <column id="83" parent="15" name="ID_STUDY">
+    <column id="88" parent="16" name="ID_STUDY">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="84" parent="15" name="A1">
+    <column id="89" parent="16" name="BAD_ANALISIS">
       <Position>2</Position>
-      <DataType>BOOLEAN|16</DataType>
+      <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="85" parent="15" name="A2">
+    <column id="90" parent="16" name="A1">
       <Position>3</Position>
       <DataType>BOOLEAN|16</DataType>
     </column>
-    <column id="86" parent="15" name="A3">
+    <column id="91" parent="16" name="A2">
       <Position>4</Position>
       <DataType>BOOLEAN|16</DataType>
     </column>
-    <foreign-key id="87" parent="15" name="PPRV_ANALISIS_RESULT_PPRV_ANALISIS_ID_STUDY_FK">
+    <column id="92" parent="16" name="A3">
+      <Position>5</Position>
+      <DataType>BOOLEAN|16</DataType>
+    </column>
+    <foreign-key id="93" parent="16" name="PPRV_ANALISIS_RESULT_PPRV_ANALISIS_ID_STUDY_FK">
       <ColNames>ID_STUDY</ColNames>
       <RefSchemaName>PUBLIC</RefSchemaName>
       <RefTableName>PPRV_ANALISIS</RefTableName>
@@ -317,113 +338,85 @@
       <OnDelete>cascade</OnDelete>
       <OnUpdate>cascade</OnUpdate>
     </foreign-key>
-    <column id="88" parent="16" name="ID_PATIENT">
+    <column id="94" parent="17" name="ID_PATIENT">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="89" parent="16" name="FIO">
+    <column id="95" parent="17" name="FIO">
       <Position>2</Position>
       <DataType>VARCHAR(100)|12</DataType>
     </column>
-    <column id="90" parent="16" name="AGE">
+    <column id="96" parent="17" name="AGE">
       <Position>3</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="91" parent="16" name="SEX">
+    <column id="97" parent="17" name="SEX">
       <Position>4</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="92" parent="16" name="LAST_OPERATION">
+    <column id="98" parent="17" name="LAST_OPERATION">
       <Position>5</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <column id="93" parent="16" name="ID_DOCTOR">
+    <column id="99" parent="17" name="ID_DOCTOR">
       <Position>6</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <index id="94" parent="16" name="PPRV_ANALISIS_PPRV_PATIENT_ID_PATIENT_FK_INDEX_8">
+    <index id="100" parent="17" name="PPRV_ANALISIS_PPRV_PATIENT_ID_PATIENT_FK_INDEX_8">
       <ColNames>ID_PATIENT</ColNames>
       <Unique>1</Unique>
     </index>
-    <column id="95" parent="17" name="ID">
+    <column id="101" parent="18" name="ID">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="96" parent="17" name="FIRST">
+    <column id="102" parent="18" name="FIRST">
       <Position>2</Position>
       <DataType>VARCHAR(255)|12</DataType>
     </column>
-    <column id="97" parent="17" name="LAST">
+    <column id="103" parent="18" name="LAST">
       <Position>3</Position>
       <DataType>VARCHAR(255)|12</DataType>
     </column>
-    <column id="98" parent="17" name="AGE">
+    <column id="104" parent="18" name="AGE">
       <Position>4</Position>
       <DataType>INTEGER(10)|4</DataType>
     </column>
-    <key id="99" parent="17" name="CONSTRAINT_3">
+    <key id="105" parent="18" name="CONSTRAINT_3">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="100" parent="18" name="ID">
+    <column id="106" parent="19" name="ID">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="101" parent="18" name="RES">
+    <column id="107" parent="19" name="RES">
       <Position>2</Position>
       <DataType>VARCHAR(128)|12</DataType>
     </column>
-    <column id="102" parent="18" name="COMMENT">
+    <column id="108" parent="19" name="COMMENT">
       <Position>3</Position>
       <DataType>VARCHAR(128)|12</DataType>
       <NotNull>1</NotNull>
     </column>
-    <key id="103" parent="18" name="CONSTRAINT_8">
+    <key id="109" parent="19" name="CONSTRAINT_8">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="104" parent="19" name="ID">
+    <column id="110" parent="20" name="ID">
       <Position>1</Position>
       <DataType>INTEGER(10)|4</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="105" parent="19" name="TITLE">
+    <column id="111" parent="20" name="TITLE">
       <Position>2</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <key id="106" parent="19" name="CONSTRAINT_2">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>ID</ColNames>
-      <Primary>1</Primary>
-    </key>
-    <column id="107" parent="20" name="ID">
-      <Position>1</Position>
-      <DataType>BIGINT(19)|-5</DataType>
-      <NotNull>1</NotNull>
-      <SequenceIdentity>1</SequenceIdentity>
-      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8F5C1F68_7571_4458_B23A_AE08E7E96393)</DefaultExpression>
-    </column>
-    <column id="108" parent="20" name="LOGIN">
-      <Position>2</Position>
-      <DataType>VARCHAR(255)|12</DataType>
-    </column>
-    <column id="109" parent="20" name="PASSWORD">
-      <Position>3</Position>
-      <DataType>VARCHAR(255)|12</DataType>
-    </column>
-    <column id="110" parent="20" name="ROLE">
-      <Position>4</Position>
-      <DataType>INTEGER(10)|4</DataType>
-    </column>
-    <column id="111" parent="20" name="FIO">
-      <Position>5</Position>
-      <DataType>VARCHAR(50)|12</DataType>
-    </column>
-    <key id="112" parent="20" name="CONSTRAINT_6107">
+    <key id="112" parent="20" name="CONSTRAINT_2">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
@@ -433,7 +426,7 @@
       <DataType>BIGINT(19)|-5</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5F92ADB3_5733_4A1C_9F5D_B659ED35C01C)</DefaultExpression>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_8F5C1F68_7571_4458_B23A_AE08E7E96393)</DefaultExpression>
     </column>
     <column id="114" parent="21" name="LOGIN">
       <Position>2</Position>
@@ -451,7 +444,7 @@
       <Position>5</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <key id="118" parent="21" name="CONSTRAINT_61">
+    <key id="118" parent="21" name="CONSTRAINT_6107">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
@@ -461,7 +454,7 @@
       <DataType>BIGINT(19)|-5</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_FFC6897D_4503_426E_A420_369C914E95EF)</DefaultExpression>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_5F92ADB3_5733_4A1C_9F5D_B659ED35C01C)</DefaultExpression>
     </column>
     <column id="120" parent="22" name="LOGIN">
       <Position>2</Position>
@@ -479,7 +472,7 @@
       <Position>5</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <key id="124" parent="22" name="CONSTRAINT_610">
+    <key id="124" parent="22" name="CONSTRAINT_61">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
@@ -489,7 +482,7 @@
       <DataType>BIGINT(19)|-5</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
-      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D20A7C83_113D_4B60_9930_6416D9868DD5)</DefaultExpression>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_FFC6897D_4503_426E_A420_369C914E95EF)</DefaultExpression>
     </column>
     <column id="126" parent="23" name="LOGIN">
       <Position>2</Position>
@@ -507,7 +500,35 @@
       <Position>5</Position>
       <DataType>VARCHAR(50)|12</DataType>
     </column>
-    <key id="130" parent="23" name="CONSTRAINT_6">
+    <key id="130" parent="23" name="CONSTRAINT_610">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="131" parent="24" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT(19)|-5</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>(NEXT VALUE FOR PUBLIC.SYSTEM_SEQUENCE_D20A7C83_113D_4B60_9930_6416D9868DD5)</DefaultExpression>
+    </column>
+    <column id="132" parent="24" name="LOGIN">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <column id="133" parent="24" name="PASSWORD">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12</DataType>
+    </column>
+    <column id="134" parent="24" name="ROLE">
+      <Position>4</Position>
+      <DataType>INTEGER(10)|4</DataType>
+    </column>
+    <column id="135" parent="24" name="FIO">
+      <Position>5</Position>
+      <DataType>VARCHAR(50)|12</DataType>
+    </column>
+    <key id="136" parent="24" name="CONSTRAINT_6">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>

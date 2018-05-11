@@ -380,7 +380,7 @@ catch (Exception e) {
    void test (int id_study, int sex) throws SQLException, ClassNotFoundException {
        ConH2.Conn();
        Statement statement = ConH2.conn.createStatement();
-       String sqlq = "INSERT INTO PPRV_ANALISIS_RESULT (ID_STUDY) VALUES (" + id_study + ")";
+       String sqlq = "INSERT INTO PPRV_ANALISIS_RESULT (ID_STUDY, BAD_ANALISIS) VALUES (" + id_study + ",0)";
        statement.executeUpdate(sqlq);
        boolean r;
        String SQL_A = "SELECT * from PPRV_ANALISIS WHERE ID_STUDY =" + id_study;
@@ -390,9 +390,7 @@ catch (Exception e) {
        rs_n.next();
        rs_a.next();
 
-       System.out.println("КОРОЧЕ " + rs_a.getInt(4));
-       System.out.println("КОРОЧЕ " + rs_a.getInt(5));
-       System.out.println("КОРОЧЕ " + rs_a.getInt(6));
+
 
 
            for (int i = 4; i <= rs_a.getMetaData().getColumnCount(); i++) {
@@ -411,8 +409,9 @@ catch (Exception e) {
                   r = study < arr[2] && study > arr[3] ? true : false;
                }
                System.out.println("результат " + r);
+               int t = r ? 0:1;
 
-               String sql2 = "UPDATE PPRV_ANALISIS_RESULT SET " + columnName +" = " + r + " WHERE ID_STUDY = " + id_study;
+               String sql2 = "UPDATE PPRV_ANALISIS_RESULT SET " + columnName +" = " + r + ", BAD_ANALISIS = BAD_ANALISIS + " + t + " WHERE ID_STUDY = " + id_study;
                statement.executeUpdate(sql2);
                }
        }
@@ -427,7 +426,7 @@ catch (Exception e) {
 
 
        void test2 (int id_study) throws SQLException {
-           ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from PPRV_ANALISIS_RESULT WHERE ID_STUDY =" + id_study);
+           ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from oldPPRV_ANALISIS_RESULT WHERE ID_STUDY =" + id_study);
            rs.next();
 
 

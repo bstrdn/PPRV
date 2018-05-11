@@ -135,9 +135,11 @@ public class ControllerInfoPatient {
         ConH2.Conn();
         String SQL = "SELECT * FROM PPRV_ANALISIS WHERE ID_STUDY =" + a;
         String SQL3 = "SELECT * FROM PPRV_ANALISIS_RESULT WHERE ID_STUDY =" + a;
+        String SQL4 = "SELECT * FROM PPRV_ANALISIS_NAME";
         System.out.println(a);
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
         ResultSet rs3 = ConH2.conn.createStatement().executeQuery(SQL3);
+        ResultSet rs4 = ConH2.conn.createStatement().executeQuery(SQL4);
         rs.next();
 //        System.out.println(rs.getString("DATE"));
         lvPatient.getItems().clear();
@@ -145,13 +147,19 @@ public class ControllerInfoPatient {
         ResultSet rs2 = ConH2.conn.createStatement().executeQuery(SQL2);
         rs2.next();
         rs3.next();
+        rs4.next();
 
-        for (int i = 2; i <= rs3.getMetaData().getColumnCount(); i++ ) {
-         rs3.getString(i);
+        System.out.println("-================" + rs3.getMetaData().getColumnCount());
 
-            System.out.println("НАЗВАНИЕ СТОЛБЦОВ " + rs3.getMetaData().getColumnName(i));
-            System.out.println("НАЗВАНИЕ СТОЛБЦОВ " + rs.getInt(i+2));
-            System.out.println("НАЗВАНИЕ ________ " + rs3.getString(i));
+        for (int i = 2; i < rs3.getMetaData().getColumnCount(); i++ ) {
+       //  rs3.getString(i+1);
+
+         //   System.out.println("НАЗВАНИЕ СТОЛБЦОВ " + rs3.getMetaData().getColumnName(i));
+         //   System.out.println("НАЗВАНИЕ СТОЛБЦОВ " + );
+         //   System.out.println("НАЗВАНИЕ ________ " + rs3.getString(i));
+            String an = rs4.getString(i - 1) + ": " + rs.getInt(i+2);
+            an += rs3.getBoolean(i+1) ? " АНАЛИЗЫ ПОДХОДЯТ" : " ПЛОХИЕ АНАЛИЗЫ";
+            lvPatient.getItems().add(i-2, an);
         }
 
 
@@ -181,10 +189,10 @@ public class ControllerInfoPatient {
                 super.updateItem(item, empty);
                 System.out.println(item);
                 try {
-                    if (item.contains("Замечаний нет.")) {
+                    if (item.contains("ПОДХОДЯТ")) {
                         setText(item);
                     }
-                    else if (item.contains("Нельзя") || item.contains("женщинам" ) || item.contains("запрещено" )) {
+                    else if (item.contains("ПЛОХИЕ") || item.contains("женщинам" ) || item.contains("запрещено" )) {
                         setText(item);
                         setStyle("-fx-background-color: red");
                     }
