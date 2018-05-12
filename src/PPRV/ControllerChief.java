@@ -114,12 +114,23 @@ public class ControllerChief  {
 
     public void buildData1() throws SQLException {
         data2 = FXCollections.observableArrayList();
-        String SQL = "SELECT * FROM PATIENT";
-        String SQL2 = "SELECT\n" +
-                "  ID_PATIENT, PPRV_PATIENT.FIO, AGE, SEX, OPERATION_NAME, USERS.FIO\n" +
-                "FROM PPRV_PATIENT, OPERATIONS, USERS\n" +
-                "WHERE PPRV_PATIENT.LAST_OPERATION=OPERATIONS.ID AND PPRV_PATIENT.ID_DOCTOR=USERS.ID\n" +
-                "ORDER BY ID_PATIENT";
+
+        String SQL2 = "";
+        if (Controller.role == 2) {
+             SQL2 = "SELECT ID_PATIENT, PPRV_PATIENT.FIO, AGE, SEX, OPERATION_NAME, USERS.FIO\n" +
+                    "FROM PPRV_PATIENT, OPERATIONS, USERS\n" +
+                    "WHERE PPRV_PATIENT.LAST_OPERATION=OPERATIONS.ID AND PPRV_PATIENT.ID_DOCTOR=USERS.ID\n" +
+                    "ORDER BY ID_PATIENT";
+        }
+        else {
+             SQL2 = "SELECT ID_PATIENT, PPRV_PATIENT.FIO, AGE, SEX, OPERATION_NAME, USERS.FIO\n" +
+                    "FROM PPRV_PATIENT, OPERATIONS, USERS\n" +
+                    "WHERE PPRV_PATIENT.LAST_OPERATION=OPERATIONS.ID AND PPRV_PATIENT.ID_DOCTOR=USERS.ID AND PPRV_PATIENT.ID_DOCTOR = " + Controller.id +"\n" +
+                    "ORDER BY ID_PATIENT";
+            }
+
+
+
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL2);
 
         while (rs.next()) {
@@ -403,10 +414,10 @@ catch (Exception e) {
                System.out.println("значение " + study);
                System.out.println("меньше " + arr[1] + " и больше " + arr[0]);
                if (sex == 0) {
-                  r = study < arr[1] && study > arr[0] ? true : false;
+                  r = study <= arr[1] && study >= arr[0] ? true : false;
                }
                 else {
-                  r = study < arr[2] && study > arr[3] ? true : false;
+                  r = study <= arr[2] && study >= arr[3] ? true : false;
                }
                System.out.println("результат " + r);
                int t = r ? 0:1;
@@ -425,19 +436,19 @@ catch (Exception e) {
 
 
 
-       void test2 (int id_study) throws SQLException {
-           ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from oldPPRV_ANALISIS_RESULT WHERE ID_STUDY =" + id_study);
-           rs.next();
-
-
-
-
-           for (int i = 2; i <= rs.getMetaData().getColumnCount(); i++) {
-               System.out.println(rs.getMetaData().getColumnName(i));
-               System.out.println(rs.getBoolean(i));
-
-           }
-       }
+//       void test2 (int id_study) throws SQLException {
+//           ResultSet rs = ConH2.conn.createStatement().executeQuery("SELECT * from oldPPRV_ANALISIS_RESULT WHERE ID_STUDY =" + id_study);
+//           rs.next();
+//
+//
+//
+//
+//           for (int i = 2; i <= rs.getMetaData().getColumnCount(); i++) {
+//               System.out.println(rs.getMetaData().getColumnName(i));
+//               System.out.println(rs.getBoolean(i));
+//
+//           }
+//       }
    }    // endTEST
 
 

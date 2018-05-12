@@ -24,38 +24,26 @@ public class Controller  implements Initializable {
     String password;
     //айди юзера в системе
     static int id = 1;
+    static int role = 0;
 
-    @FXML protected void handleSubmitButtonAction(ActionEvent event) throws SQLException, ClassNotFoundException, IOException {
+    @FXML protected void handleSubmitButtonAction(ActionEvent event) throws Exception {
        login = TF1.getText();
        password = PW1.getText();
-        int role = ConH2.LogIn(login, password);
+       role = ConH2.LogIn(login, password);
 
        if(role == 1) {
            btn1.getScene().getWindow().hide();
-           try {
-               new Main.Admin();
-           }
-           catch (Exception e) {
-               e.printStackTrace();
-           }
+           new Main.Admin();
+
        }
        else if (role == 2) {
            btn1.getScene().getWindow().hide();
-           try {
-               new Main.Chief();
-           }
-           catch (Exception e) {
-               e.printStackTrace();
-           }
+           new Main.Chief();
        }
        else if (role == 3) {
            btn1.getScene().getWindow().hide();
-           try {
-               new Main.Doctor();
-           }
-           catch (Exception e) {
-               e.printStackTrace();
-           }
+           new Main.Chief();
+//               new Main.Doctor();
        }
         else {
            actiontarget.setText("Не правильный логин или пароль!");

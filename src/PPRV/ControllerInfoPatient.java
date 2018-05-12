@@ -89,7 +89,7 @@ public class ControllerInfoPatient {
 
 
     colId.setCellValueFactory(new PropertyValueFactory<Study, String>("studyId"));
-    colIdPatient.setCellValueFactory(new PropertyValueFactory<Study, String>("studyIdName"));
+//    colIdPatient.setCellValueFactory(new PropertyValueFactory<Study, String>("studyIdName"));
     colDate.setCellValueFactory(new PropertyValueFactory<Study, String>("studyDate"));
     colA1.setCellValueFactory(new PropertyValueFactory<Study, String>("studyA1"));
     colA2.setCellValueFactory(new PropertyValueFactory<Study, String>("studyA2"));
@@ -113,14 +113,14 @@ public class ControllerInfoPatient {
 
     //ConH2.Conn();
     //data = FXCollections.observableArrayList();
-    String SQL = "SELECT * from RESULT WHERE ID = " + 3;
-    ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
-    //String ddd= ConH2.conn.createStatement().executeQuery(SQL).getString("RES");
-    //System.out.println(ddd);
-    //System.out.println(rs.getString("NAME"));
-   rs.next();
-   Text2.setText(rs.getString("RES"));
-   Text3.setText(rs.getString("COMMENT"));
+//    String SQL = "SELECT * from RESULT WHERE ID = " + 3;
+//    ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL);
+//    //String ddd= ConH2.conn.createStatement().executeQuery(SQL).getString("RES");
+//    //System.out.println(ddd);
+//    //System.out.println(rs.getString("NAME"));
+//   rs.next();
+//   Text2.setText(rs.getString("RES"));
+//   Text3.setText(rs.getString("COMMENT"));
 
 
 
@@ -150,6 +150,21 @@ public class ControllerInfoPatient {
         rs4.next();
 
         System.out.println("-================" + rs3.getMetaData().getColumnCount());
+        int f = rs3.getInt("BAD_ANALISIS");
+        if (f == 0) {
+            Text2.setText("Анализы в порядке.");
+            Text3.setText("Предварительно проводить операцию можно.");
+        }
+        else if (f == 1 || f == 2) {
+            Text2.setText("Есть замечания по анализам.");
+            Text3.setText("Проводить операцию на усмотрение врача.");
+        }
+        else {
+            Text2.setText("Большое количество плохих анализов.");
+            Text3.setText("Проводить операцию нельзя.");
+        }
+
+
 
         for (int i = 2; i < rs3.getMetaData().getColumnCount(); i++ ) {
        //  rs3.getString(i+1);
@@ -218,32 +233,38 @@ public class ControllerInfoPatient {
     public void buildData1() throws SQLException, ClassNotFoundException {
         data2 = FXCollections.observableArrayList();
       //  String SQL = "SELECT * FROM ANALYSIS WHERE ID =" + Main.idPatient;
-        String SQL2 = "SELECT ID_STUDY,FIO, DATE_ANALISIS,A1,A2,A3\n" +
-                "FROM PPRV_ANALISIS,PPRV_PATIENT\n" +
-                "WHERE PPRV_ANALISIS.ID_PATIENT = PPRV_PATIENT.ID_PATIENT AND PPRV_PATIENT.ID_PATIENT =" + Main.idPatient;
+        String SQL2 = "SELECT PPRV_ANALISIS.ID_STUDY,FIO, DATE_ANALISIS,PPRV_ANALISIS.A1,PPRV_ANALISIS.A2,PPRV_ANALISIS.A3,BAD_ANALISIS\n" +
+                "FROM PPRV_ANALISIS,PPRV_PATIENT,PPRV_ANALISIS_RESULT\n" +
+                "WHERE PPRV_ANALISIS.ID_PATIENT = PPRV_PATIENT.ID_PATIENT AND PPRV_ANALISIS.ID_STUDY = PPRV_ANALISIS_RESULT.ID_STUDY AND PPRV_PATIENT.ID_PATIENT = " + Main.idPatient;
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL2);
 
         while (rs.next()) {
             Study cm = new Study();
             cm.studyId.set(rs.getInt("ID_STUDY"));
-            cm.studyIdName.set(rs.getString("FIO"));
+//            cm.studyIdName.set(rs.getString("FIO"));
             cm.studyDate.set(rs.getString("DATE_ANALISIS"));
             cm.studyA1.set(rs.getString("A1"));
             cm.studyA2.set(rs.getString("A2"));
             cm.studyA3.set(rs.getString("A3"));
-//            cm.studyB1.set(rs.getString("B1"));
+            cm.studyB1.set(rs.getString("BAD_ANALISIS"));
 //            cm.studyC1.set(rs.getString("C1"));
 //            cm.studyC2.set(rs.getString("C2"));
 //            cm.studyD1.set(rs.getString("D1"));
             data2.add(cm);
         }
 
-        colA2.setCellFactory(column -> {
+
+
+
+
+
+
+        colB1.setCellFactory(column -> {
             return new TableCell<Study, String>() {
                 @Override
                 protected void updateItem(String item, boolean empty) {
                     super.updateItem(item, empty);
-
+                        setStyle("-fx-alignment: center-right");
                     if (item == null || empty) {
                         setText(null);
                         setStyle("");
@@ -251,12 +272,13 @@ public class ControllerInfoPatient {
                         // Format date.
                         setText(item);
                         // Style all dates in March with a different color.
-                        if (item.equals("175")) {
-                            setTextFill(javafx.scene.paint.Color.CHOCOLATE);
+                        if (item.equals("0")) {
+                            setStyle("-fx-background-color: greenyellow");
+                        } else if (item.equals("1") || item.equals("2")) {
                             setStyle("-fx-background-color: yellow");
-                        } else {
-                            setTextFill(Color.BLACK);
-                            setStyle("");
+                        }
+                        else {
+                            setStyle("-fx-background-color: red");
                         }
                     }
                 }
@@ -293,7 +315,7 @@ public void btnDelAn()throws SQLException, ClassNotFoundException {
    // idAn = parseInt(olAn.get(0).toString());
     idAn2 = st.studyId.getValue();
     ConH2.Conn();
-    String sql = "DELETE FROM ANALYSIS WHERE ID = " + idAn2;
+    String sql = "DELETE FROM PPRV_ANALISIS WHERE ID_STUDY = " + idAn2;
     statmt = ConH2.conn.createStatement();
     statmt.executeUpdate(sql);
    // tvAn.getColumns().clear();
