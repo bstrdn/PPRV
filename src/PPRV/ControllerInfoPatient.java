@@ -143,9 +143,9 @@ public class ControllerInfoPatient {
         rs.next();
 //        System.out.println(rs.getString("DATE"));
         lvPatient.getItems().clear();
-        String SQL2 = "SELECT * FROM COMMENT WHERE ID =" + a;
-        ResultSet rs2 = ConH2.conn.createStatement().executeQuery(SQL2);
-        rs2.next();
+ //       String SQL2 = "SELECT * FROM COMMENT WHERE ID =" + a;
+//        ResultSet rs2 = ConH2.conn.createStatement().executeQuery(SQL2);
+//        rs2.next();
         rs3.next();
         rs4.next();
 
@@ -166,15 +166,15 @@ public class ControllerInfoPatient {
 
 
 
-        for (int i = 2; i < rs3.getMetaData().getColumnCount(); i++ ) {
+        for (int i = 3; i < rs3.getMetaData().getColumnCount(); i++ ) {
        //  rs3.getString(i+1);
 
          //   System.out.println("НАЗВАНИЕ СТОЛБЦОВ " + rs3.getMetaData().getColumnName(i));
          //   System.out.println("НАЗВАНИЕ СТОЛБЦОВ " + );
          //   System.out.println("НАЗВАНИЕ ________ " + rs3.getString(i));
-            String an = rs4.getString(i - 1) + ": " + rs.getInt(i+2);
+            String an = rs4.getString(i - 2) + ": " + rs.getInt(i+1);
             an += rs3.getBoolean(i+1) ? " АНАЛИЗЫ ПОДХОДЯТ" : " ПЛОХИЕ АНАЛИЗЫ";
-            lvPatient.getItems().add(i-2, an);
+            lvPatient.getItems().add(i-3, an);
         }
 
 
@@ -233,9 +233,9 @@ public class ControllerInfoPatient {
     public void buildData1() throws SQLException, ClassNotFoundException {
         data2 = FXCollections.observableArrayList();
       //  String SQL = "SELECT * FROM ANALYSIS WHERE ID =" + Main.idPatient;
-        String SQL2 = "SELECT PPRV_ANALISIS.ID_STUDY,FIO, DATE_ANALISIS,PPRV_ANALISIS.A1,PPRV_ANALISIS.A2,PPRV_ANALISIS.A3,BAD_ANALISIS\n" +
-                "FROM PPRV_ANALISIS,PPRV_PATIENT,PPRV_ANALISIS_RESULT\n" +
-                "WHERE PPRV_ANALISIS.ID_PATIENT = PPRV_PATIENT.ID_PATIENT AND PPRV_ANALISIS.ID_STUDY = PPRV_ANALISIS_RESULT.ID_STUDY AND PPRV_PATIENT.ID_PATIENT = " + Main.idPatient;
+        String SQL2 = "SELECT PPRV_ANALISIS.ID_STUDY,FIO, DATE_ANALISIS,PPRV_ANALISIS.A1,PPRV_ANALISIS.A2,PPRV_ANALISIS.A3,BAD_ANALISIS,OPERATION_NAME\n" +
+                "FROM PPRV_ANALISIS,PPRV_PATIENT,PPRV_ANALISIS_RESULT,OPERATIONS\n" +
+                "WHERE PPRV_ANALISIS.ID_PATIENT = PPRV_PATIENT.ID_PATIENT AND PPRV_ANALISIS.ID_STUDY = PPRV_ANALISIS_RESULT.ID_STUDY AND PPRV_ANALISIS_RESULT.OPERATION = OPERATIONS.ID AND PPRV_PATIENT.ID_PATIENT = " + Main.idPatient;
         ResultSet rs = ConH2.conn.createStatement().executeQuery(SQL2);
 
         while (rs.next()) {
@@ -247,6 +247,8 @@ public class ControllerInfoPatient {
             cm.studyA2.set(rs.getString("A2"));
             cm.studyA3.set(rs.getString("A3"));
             cm.studyB1.set(rs.getString("BAD_ANALISIS"));
+            cm.studyC1.set(rs.getString("OPERATION_NAME"));
+         //   cm.studyC1.set(rs.get);
 //            cm.studyC1.set(rs.getString("C1"));
 //            cm.studyC2.set(rs.getString("C2"));
 //            cm.studyD1.set(rs.getString("D1"));

@@ -33,12 +33,12 @@
          <!--<TableColumn fx:id="colIdPatient" prefWidth="59.0" text="ID ПАЦ" />-->
          <TableColumn fx:id="colDate" prefWidth="59.0" text="Дата иссл." />
          <TableColumn fx:id="colA1" prefWidth="59.0" text="Возраст" />
-         <TableColumn fx:id="colA2" prefWidth="59.0" text="Рост" />
-         <TableColumn fx:id="colA3" prefWidth="59.0" text="Вес" />
-         <TableColumn fx:id="colB1" prefWidth="59.0" text="Плохих анализов" />
-         <TableColumn fx:id="colC1" prefWidth="59.0" text="Кровь время сверт." />
-         <TableColumn fx:id="colC2" prefWidth="59.0" text="Кровь длительность кровот." />
-         <TableColumn fx:id="colD1" prefWidth="59.0" text="Кровь группа, резус фактор" />
+         <TableColumn fx:id="colA2" prefWidth="44.00001525878906" text="Рост" />
+         <TableColumn fx:id="colA3" prefWidth="49.0" text="Вес" />
+         <TableColumn fx:id="colB1" prefWidth="119.0" text="Плохих анализов" />
+         <TableColumn fx:id="colC1" prefWidth="71.0" text="Операция" />
+         <TableColumn fx:id="colC2" prefWidth="12.0" text=" " />
+         <TableColumn fx:id="colD1" prefWidth="59.0" text=" " />
       </columns>
 </TableView>
    <ListView fx:id="lvPatient" prefHeight="400.0" prefWidth="400.0" GridPane.columnIndex="2" GridPane.rowSpan="7" />

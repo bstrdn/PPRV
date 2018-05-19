@@ -391,7 +391,7 @@ catch (Exception e) {
    void test (int id_study, int sex) throws SQLException, ClassNotFoundException {
        ConH2.Conn();
        Statement statement = ConH2.conn.createStatement();
-       String sqlq = "INSERT INTO PPRV_ANALISIS_RESULT (ID_STUDY, BAD_ANALISIS) VALUES (" + id_study + ",0)";
+       String sqlq = "INSERT INTO PPRV_ANALISIS_RESULT (ID_STUDY, BAD_ANALISIS, OPERATION) VALUES (" + id_study + ",0," + (idOper + 1) + ")";
        statement.executeUpdate(sqlq);
        boolean r;
        String SQL_A = "SELECT * from PPRV_ANALISIS WHERE ID_STUDY =" + id_study;
@@ -411,8 +411,8 @@ catch (Exception e) {
                String columnName = rs_n.getMetaData().getColumnName(i-3);
                int[] arr = Arrays.stream(rs_n.getString(i-3).substring(0, rs_n.getString(i-3).length()).split(","))
                        .map(String::trim).mapToInt(Integer::parseInt).toArray();
-               System.out.println("значение " + study);
-               System.out.println("меньше " + arr[1] + " и больше " + arr[0]);
+//               System.out.println("значение " + study);
+//               System.out.println("меньше " + arr[1] + " и больше " + arr[0]);
                if (sex == 0) {
                   r = study <= arr[1] && study >= arr[0] ? true : false;
                }
