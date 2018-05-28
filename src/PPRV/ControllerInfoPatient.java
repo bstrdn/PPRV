@@ -166,6 +166,7 @@ public class ControllerInfoPatient {
 
 
 
+  //      lvPatient.getItems().add(5, "Кровь");
         for (int i = 3; i < rs3.getMetaData().getColumnCount(); i++ ) {
        //  rs3.getString(i+1);
 
@@ -174,7 +175,15 @@ public class ControllerInfoPatient {
          //   System.out.println("НАЗВАНИЕ ________ " + rs3.getString(i));
             String an = rs4.getString(i - 2) + ": " + rs.getInt(i+1);
             an += rs3.getBoolean(i+1) ? " АНАЛИЗЫ ПОДХОДЯТ" : " ПЛОХИЕ АНАЛИЗЫ";
-            lvPatient.getItems().add(i-3, an);
+
+            if (i < 7) {
+                if (i == 3) { lvPatient.getItems().add(0, "Общая информация");}
+                lvPatient.getItems().add(i-2, an);
+            }
+            else if (i-3 <13) {
+                if (i == 8) { lvPatient.getItems().add(5, "Клинический анализ крови");}
+                lvPatient.getItems().add(i-3, an);
+            }
         }
 
 
